@@ -99,7 +99,7 @@ public class BankManager {
         if (accountNum.matches("\\d{10}")) {
             return true;
         } else {
-            throw new InvalidAccountNumber("account number is inavlid");
+            throw new InvalidAccountNumber("Invalid Bank Account number (must be 10 digits)");
         }
     }
 }
