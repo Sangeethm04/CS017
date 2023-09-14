@@ -25,7 +25,7 @@ public class Savings extends BankAccount {
     }
 
     /**
-     * 
+     * method to calculate monthly interest rate and add to balance
      * @return double of monthly interest rate
      */
     public double getMonthlyInterest() {
