@@ -5,21 +5,34 @@ import java.io.PrintWriter;
 
 
 /**
- * class Bank
+ * class Bank to model entity Bank
  */
 public class Bank {
     private BankAccount[] accounts;
     private int count;
+
+    /**
+     * Default constructor
+     */
     public Bank() {
         accounts = new BankAccount[50];
         count = 0;
     }
 
+    /** 
+     * constructor for Bank class
+     * @param filename
+     */
     public Bank(String filename) {
         accounts = new BankAccount[100];
         count = readAccounts(filename);
     }
 
+    /**
+     * Reads accounts from file
+     * @param filename
+     * @return int of count
+     */
     private int readAccounts(String filename) {
         File file = new File(filename);
         count = 0;
@@ -50,13 +63,26 @@ public class Bank {
 
     }
 
+    /**
+     * Saves account to file
+     * @param filename
+     */
     public void saveAccount(String filename) {
         File file = new File(filename);
         try {
             PrintWriter filewriter = new PrintWriter(file);
             for (int i = 0; i < count; i++) {
-                filewriter.print(accounts[i]);
+                if (accounts[i] instanceof Checking) {
+                    filewriter.println("Checking|" + accounts[i].getNumber() + "|" + accounts[i].getOwner() + "|" + accounts[i].getBalance());
+                } else if (accounts[i] instanceof Savings) {
+                    Savings save = (Savings) accounts[i];
+                    filewriter.println("Savings|" + accounts[i].getNumber() + "|" + accounts[i].getOwner() + "|" + accounts[i].getBalance() + "|" + save.getYearlyInterest());
+                } else if (accounts[i] instanceof Investment) {
+                    Investment invest = (Investment) accounts[i];
+                    filewriter.println("Investment|" + accounts[i].getNumber() + "|" + accounts[i].getOwner() + "|" + accounts[i].getBalance() + "|" + invest.getType());
+                }
             }
+
             filewriter.close();
         } catch (FileNotFoundException e) {
             System.out.println("cannot write to file");
@@ -87,7 +113,7 @@ public class Bank {
 
 
     /**
-     * 
+     * sorts accounts based on boolean
      * @param numberOrBalance
      */
     public void sortAccounts(boolean numberOrBalance) {

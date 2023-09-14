@@ -29,19 +29,30 @@ public class Savings extends BankAccount {
      * @return double of monthly interest rate
      */
     public double getMonthlyInterest() {
-       double amount = ((((yearlyInterestRate / 12) / 100) * balance));
-       balance+=amount;
+        double amount = ((((yearlyInterestRate / 12) / 100) * balance));
+        balance += amount;
         return amount;
     }
 
+    /**
+     * mutator method
+     * @param y interest rate
+     */
     public void setYearlyInterestRate(double y) {
         this.yearlyInterestRate = y;
     }
 
+    /**
+     * method to apply monthly interest rate
+     */
     public void applyMonthlyInterestRate() {
         balance += getMonthlyInterest();
     }
 
+    /**
+     * method to return formatted attributes
+     * @return String of formatted attributes
+     */
     @Override
     public String toString() {
         String out = "Savings\t\t" + super.toString();

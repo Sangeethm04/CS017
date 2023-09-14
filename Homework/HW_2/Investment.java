@@ -4,6 +4,13 @@
 public class Investment extends BankAccount {
     private String type;
 
+    /**
+     * constructor for Investment class
+     * @param number
+     * @param owner
+     * @param balance
+     * @param type
+     */
     public Investment(long number, String owner, double balance, String type) {
         super(number, owner, balance);
         this.type = type;

@@ -3,6 +3,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+/**
+ * class BankManager
+ */
 public class BankManager {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -25,55 +28,64 @@ public class BankManager {
                     try {
                         checkAccountNumber(accountNumber);
                         BankAccount account = myBank.findAccount(accountNumber);
-                        System.out.println("1: Withdraw");
-                        System.out.println("2: Deposit");
-                        System.out.println("3: Apply monthly interest");
-                        System.out.println("4: Apply investment profit/loss");
-                        System.out.println("5: Return to main menu");
-                        int manageOperation = input.nextInt();
-                        switch(manageOperation) {
-                            case 1:
-                                System.out.println("Enter amount to withdraw");
-                                double amount = input.nextDouble();
-                                account.withdraw(amount);
-                                System.out.println("New balance: " + account.getBalance());
-                                break;
-                            case 2:
-                                System.out.println("Enter amount to deposit");
-                                amount = input.nextDouble();
-                                account.deposit(amount);
-                                System.out.println("New balance: " + account.getBalance());
-                                break;
-                            case 3:
-                                if (account instanceof Savings) {
-                                    Savings savingsAccount = (Savings) account;
-                                    savingsAccount.applyMonthlyInterestRate();
-                                    System.out.println("New balance: " + savingsAccount.getBalance());
-                                } else {
-                                    System.out.println("This operation is only allowed on savings accounts");
-                                }
-                                break;
-                            case 4:
-                                if (account instanceof Investment) {
-                                    Investment investmentAccount = (Investment) account;
-                                    double change = investmentAccount.getProfitOrLoss();
-                                    investmentAccount.deposit(change);
-                                    System.out.println("New balance: " + investmentAccount.getBalance());
-                                } else {
-                                    System.out.println("This operation is only allowed on investment accounts");
-                                }
-                                break;
-                            case 5:
-                                break;
-                            default:
-                                System.out.println("Invalid operation");
-                                break;
+                        int manageOperation = 0;
+                        System.out.println("Account found. Balance = $" + account.getBalance());
+                        while (manageOperation != 5) {
+                            System.out.println();
+                            System.out.println("Select an operation:");
+                            System.out.println("1: Withdraw");
+                            System.out.println("2: Deposit");
+                            System.out.println("3: Apply monthly interest");
+                            System.out.println("4: Apply investment profit/loss");
+                            System.out.println("5: Return to main menu");
+                            manageOperation = input.nextInt();
+                            switch (manageOperation) {
+                                case 1:
+                                    System.out.println("Enter an amount:");
+                                    double amount = input.nextDouble();
+                                    if (account.withdraw(amount)) {
+                                        System.out.println("Withdrawal Successful. The new balance: $" + account.getBalance());
+                                    } else {
+                                        System.out.println("Withdrawal failed. The available balance: $" + account.getBalance());
+                                    }
+                                    break;
+                                case 2:
+                                    System.out.println("Enter an amount:");
+                                    amount = input.nextDouble();
+                                    account.deposit(amount);
+                                    System.out.println("Deposit Successful. The new balance: $" + account.getBalance());
+                                    break;
+                                case 3:
+                                    if (account instanceof Savings) {
+                                        Savings savingsAccount = (Savings) account;
+                                        savingsAccount.applyMonthlyInterestRate();
+                                        System.out.println("Monthly interest = $" + savingsAccount.getMonthlyInterest() + ". The new balance: $" + savingsAccount.getBalance());
+                                    } else {
+                                        System.out.println("Cannot get the monthly interest. Not a savings account.");
+                                    }
+                                    break;
+                                case 4:
+                                    if (account instanceof Investment) {
+                                        Investment investmentAccount = (Investment) account;
+                                        double change = investmentAccount.getProfitOrLoss();
+                                        investmentAccount.deposit(change);
+                                        System.out.println("New balance: " + investmentAccount.getBalance());
+                                    } else {
+                                        System.out.println("Cannot get the profit/loss. Not an investment account.");
+                                    }
+                                    break;
+                                case 5:
+                                    break;
+                                default:
+                                    System.out.println("Invalid operation");
+                                    break;
+                            }
                         }
                     } catch (InvalidAccountNumber e) {
                         System.out.println(e.getMessage());
                         break;
                     }
-                    
+
                     break;
                 case 3:
                     myBank.sortAccounts(true);
