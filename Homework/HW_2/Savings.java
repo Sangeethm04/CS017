@@ -42,12 +42,6 @@ public class Savings extends BankAccount {
         this.yearlyInterestRate = y;
     }
 
-    /**
-     * method to apply monthly interest rate
-     */
-    public void applyMonthlyInterestRate() {
-        balance += getMonthlyInterest();
-    }
 
     /**
      * method to return formatted attributes

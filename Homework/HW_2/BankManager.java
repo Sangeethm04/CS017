@@ -12,6 +12,8 @@ public class BankManager {
         Bank myBank = new Bank("accounts.txt");
         int operation = 0;
         while (operation != 5) {
+            System.out.println();
+            System.out.println("Select an operation:");
             System.out.println("1: View accounts");
             System.out.println("2: Manage account");
             System.out.println("3: Sort accounts by number");
@@ -35,8 +37,8 @@ public class BankManager {
                             System.out.println("Select an operation:");
                             System.out.println("1: Withdraw");
                             System.out.println("2: Deposit");
-                            System.out.println("3: Apply monthly interest");
-                            System.out.println("4: Apply investment profit/loss");
+                            System.out.println("3: Monthly interest");
+                            System.out.println("4: Investment profit/loss");
                             System.out.println("5: Return to main menu");
                             manageOperation = input.nextInt();
                             switch (manageOperation) {
@@ -58,7 +60,6 @@ public class BankManager {
                                 case 3:
                                     if (account instanceof Savings) {
                                         Savings savingsAccount = (Savings) account;
-                                        savingsAccount.applyMonthlyInterestRate();
                                         System.out.println("Monthly interest = $" + savingsAccount.getMonthlyInterest() + ". The new balance: $" + savingsAccount.getBalance());
                                     } else {
                                         System.out.println("Cannot get the monthly interest. Not a savings account.");
@@ -67,9 +68,7 @@ public class BankManager {
                                 case 4:
                                     if (account instanceof Investment) {
                                         Investment investmentAccount = (Investment) account;
-                                        double change = investmentAccount.getProfitOrLoss();
-                                        investmentAccount.deposit(change);
-                                        System.out.println("New balance: " + investmentAccount.getBalance());
+                                        System.out.println("Change = $"+ investmentAccount.getProfitOrLoss()+ ". The new balance: $" + investmentAccount.getBalance());
                                     } else {
                                         System.out.println("Cannot get the profit/loss. Not an investment account.");
                                     }
@@ -89,11 +88,9 @@ public class BankManager {
                     break;
                 case 3:
                     myBank.sortAccounts(true);
-                    System.out.println(myBank.toString());
                     break;
                 case 4:
                     myBank.sortAccounts(false);
-                    System.out.println(myBank.toString());
                     break;
                 case 5:
                     myBank.saveAccount("accounts.txt");
@@ -106,6 +103,12 @@ public class BankManager {
 
     }
 
+    /**
+     * method that checks if account number is valid with 10 digits
+     * @param accountNumber accountnum which is passed in
+     * @return true or false if account number is valid
+     * @throws InvalidAccountNumber
+     */
     public static boolean checkAccountNumber(long accountNumber) throws InvalidAccountNumber {
         String accountNum = String.valueOf(accountNumber);
         if (accountNum.matches("\\d{10}")) {
