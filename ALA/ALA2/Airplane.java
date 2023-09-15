@@ -3,6 +3,9 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.io.File;
 
+/**
+ * Airplane class for ALA2
+ */
 public class Airplane {
     private char[][] seatMap;
     //default constructor
@@ -14,12 +17,19 @@ public class Airplane {
             }
         }
     }
-    //second constrcutor
+    /**
+     * Constructor that takes a filename as a parameter
+     * @param filename
+     */
     public Airplane(String filename) {
         seatMap = new char[9][8];
         readMap(filename);
     }
 
+    /**
+     * Reads the seat map from a file
+     * @param filename
+     */
     private void readMap(String filename) {
         //open file
         File file = new File(filename);
@@ -40,6 +50,11 @@ public class Airplane {
         }
     }
 
+    /**
+     * Checks if the seat number is valid
+     * @param seatNumber seat number to check
+     * @return boolean true if valid, false otherwise
+     */
     private boolean checkSeatNumber(String seatNumber) throws InvalidSeatException {
         if (seatNumber.matches("[1-9][A-H]")) {
             return true;
@@ -47,6 +62,11 @@ public class Airplane {
         throw new InvalidSeatException("Invalid seat number (row[1-9]column[A-H]). Please try again.");
     }
 
+    /**
+     * Reserves a seat
+     * @param seatNumber seat number to reserve
+     * @return boolean true if reserved, false otherwise
+     */
     public boolean reserveSeat(String seatNumber) throws InvalidSeatException {
         checkSeatNumber(seatNumber);
         int row = seatNumber.charAt(0) - '1';
@@ -59,6 +79,12 @@ public class Airplane {
         }
     }
 
+    /**
+     * Frees a seat on airplane
+     * @param seatNumber seat number to free
+     * @return boolean true if freed, false otherwise
+     * @throws InvalidSeatException
+     */
     public boolean freeSeat(String seatNumber) throws InvalidSeatException {
         checkSeatNumber(seatNumber);
         int row = seatNumber.charAt(0) - '1';
@@ -71,6 +97,11 @@ public class Airplane {
         }
     }
 
+    /**
+     * Saves the seat map to a file
+     * @param filename
+     * @throws FileNotFoundException
+     */
     public void saveMap(String filename) {
         File file = new File(filename);
         try {
@@ -87,6 +118,10 @@ public class Airplane {
         }
     }
 
+    /**
+     * Returns a string representation of the seat map
+     * @return String of attributes
+     */
     public String toString() {
         String out = "\tA\tB\tC\tD\tE\tF\tG\tH\n";
         for (int i = 0; i < seatMap.length; i++) {

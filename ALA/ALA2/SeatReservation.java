@@ -1,7 +1,15 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * SeatReservation class for ALA2
+ */
 public class SeatReservation {
+    /**
+     * main method
+     * @param args
+     * @throws InvalidSeatException
+     */
     public static void main(String[] args) {
         Airplane ap = new Airplane("seatsmap.txt");
         Scanner keyboard = new Scanner(System.in);

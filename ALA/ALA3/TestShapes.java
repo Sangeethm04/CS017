@@ -1,3 +1,6 @@
+/**
+ * TestShapes class 
+ */
 public class TestShapes {
     public static void main(String[] args) {
         Shape[] shapes = new Shape[8];
@@ -25,18 +28,27 @@ public class TestShapes {
         System.out.println("Shape\t\t" + "Color\t" + "Dimensions\t\t" + "Area\t" + "Perimeter");
         java.util.Arrays.sort(shapes);
         printShapes(shapes);
-
+        System.out.println();
         System.out.println("Average Perimeter = " + getAveragePerimeter(shapes));
 
 
     }
 
+    /**
+     * static printShapes method
+     * @param list list of shapes
+     */
     public static void printShapes(Shape[] list) {
         for (Shape s: list) {
             System.out.println(s);
         }
     }
 
+    /**
+     * static getAveragePerimeter method
+     * @param list list of shapes
+     * @return average perimeter
+     */
     public static double getAveragePerimeter(Shape[] list) {
         double total = 0;
         for (int i = 0; i < list.length; i++) {
