@@ -1,7 +1,7 @@
 /**
  * Abstract class BankAccount to model the entity Bank
  */
-abstract public class BankAccount implements Comparable <BankAccount> , Closeable {
+abstract public class BankAccount implements Comparable < BankAccount > , Closeable {
 
     private long number;
     private String owner;
@@ -73,7 +73,7 @@ abstract public class BankAccount implements Comparable <BankAccount> , Closeabl
         }
     }
 
-    
+
     public int compareTo(BankAccount ba) {
         if (ba.getBalance() < this.getBalance()) {
             return -1;

@@ -2,12 +2,9 @@
 public class test {
 // Returns 0 if value is not prime, 1 if value is prime
    public static void infinite(int testVal) {
-    if(testVal == 10000000) {
-        System.out.println("hello"); 
-    } else {
-        System.out.println(testVal); 
-    infinite(testVal+1);
-   }
+    for(int i=0; i<1000000000; i++) {
+       System.out.print("HELLO");
+    }
 }
    public static void main(String[] args) {
           // Value checked for prime

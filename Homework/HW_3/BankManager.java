@@ -13,8 +13,8 @@ public class BankManager {
             System.out.println("Select an operation:");
             System.out.println("1: View accounts");
             System.out.println("2: Manage account");
-            System.out.println("3: Sort accounts by number");
-            System.out.println("4: Sort accounts by balance");
+            System.out.println("3: Sort accounts by balance");
+            System.out.println("4: View closeable accounts");
             System.out.println("5: Exit");
             operation = input.nextInt();
             switch (operation) {
@@ -84,10 +84,14 @@ public class BankManager {
 
                     break;
                 case 3:
-                    myBank.sortAccounts(true);
+                    myBank.sortAccounts();
                     break;
                 case 4:
-                    myBank.sortAccounts(false);
+                    BankAccount[] banks = myBank.getCloseableAccounts();
+                    for(int i =0; i<myBank.size(); i++) {
+                        banks[i].toString();
+                        
+                    }
                     break;
                 case 5:
                     myBank.saveAccount("accounts.txt");

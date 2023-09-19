@@ -156,7 +156,7 @@ public class Bank implements Closeable {
         return false;
     }
 
-    public void sortAccounts(boolean b) {
+    public void sortAccounts() {
         java.util.Arrays.sort(accounts);
     }
 
