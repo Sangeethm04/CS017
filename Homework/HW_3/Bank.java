@@ -131,33 +131,44 @@ public class Bank implements Closeable {
             return true;
         }
     }
-
+    //getCloseableAccounts returns an array of bank accounts that are closeable (i.e, bank accounts for which isCloseable() returns true).
     public BankAccount[] getCloseableAccounts() {
+        BankAccount[] tempAccounts = new BankAccount[count];
         int count = 0;
-        BankAccount[] accountsBank = new BankAccount[50];
-        for(int i = 0; i<count; i++) {
-            if(accounts[i].isCloseable()) {
-                accountsBank[count] = accounts[i]; 
+        for (int i = 0; i < size(); i++) {
+            if (accounts[i].isCloseable()) {
+                tempAccounts[count] = accounts[i];
                 count++;
             }
         }
-        return accountsBank;
+         BankAccount[] closeableAccounts = new BankAccount[count];
+
+         for (int i = 0; i < size(); i++) {
+            if (tempAccounts[i]!=null) {
+                closeableAccounts[i] = tempAccounts[i];
+            }
+        }
+        
+        return closeableAccounts;
     }
+
 
     public boolean removeAccount(long number) {
         for (int i = 0; i < count; i++) {
             if (accounts[i].getNumber() == number) {
-                for(int j = i; j < count-1;j++) {
-                    accounts[j] = accounts[j+1];
+                for (int j = i; j < count; j++) {
+                    accounts[j] = accounts[j + 1];
                 }
+                count--;
                 return true;
             }
         }
         return false;
     }
 
+
     public void sortAccounts() {
-        java.util.Arrays.sort(accounts);
+        java.util.Arrays.sort(accounts, 0, count);
     }
 
     /**

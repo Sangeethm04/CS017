@@ -87,10 +87,19 @@ public class BankManager {
                     myBank.sortAccounts();
                     break;
                 case 4:
-                    BankAccount[] banks = myBank.getCloseableAccounts();
-                    for(int i =0; i<myBank.size(); i++) {
-                        banks[i].toString();
-                        
+                //display the list of closeable accounts, ask the user if they want to remove the closeable accounts, and remove them from the bank if the user response is yes.
+                    BankAccount[] closeableAccounts = myBank.getCloseableAccounts();
+                    for(int i = 0; i < closeableAccounts.length; i++) {
+                        System.out.println(closeableAccounts[i].toString());
+                    }
+                    System.out.println("Do you want to remove the closeable accounts? (y/n)");
+                    String response = input.next();
+                    if(response.equals("y")) {
+                        for(int i = 0; i<closeableAccounts.length;i++) {
+                            if(closeableAccounts[i] != null) {
+                            myBank.removeAccount(closeableAccounts[i].getNumber());
+                            }
+                        }
                     }
                     break;
                 case 5:
