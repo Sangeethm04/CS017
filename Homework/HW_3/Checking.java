@@ -6,6 +6,7 @@ public class Checking extends BankAccount {
         super(number, owner, balance);
     }
     /**
+     * returns string attributes
      * @return String of formatted attributes
      */
     @Override

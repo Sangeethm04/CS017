@@ -72,7 +72,12 @@ abstract public class BankAccount implements Comparable < BankAccount > , Closea
             return true;
         }
     }
-    //The method sortAccounts sorts the bank accounts by balance only and invokes java.util.Arrays.sort() to sort the array accounts. Sorting by account number is not required for this assignment.
+
+    /**
+     * compares bankaccounts with comparable interface
+     * @param ba bankaccount
+     * @return int to order bankaccounts
+     */
     @Override
     public int compareTo(BankAccount ba) {
         if (this.getBalance() > ba.getBalance()) {
