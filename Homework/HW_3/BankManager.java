@@ -65,7 +65,7 @@ public class BankManager {
                                 case 4:
                                     if (account instanceof Investment) {
                                         Investment investmentAccount = (Investment) account;
-                                        System.out.println("Change = $"+ investmentAccount.getProfitOrLoss()+ ". The new balance: $" + investmentAccount.getBalance());
+                                        System.out.println("Change = $" + investmentAccount.getProfitOrLoss() + ". The new balance: $" + investmentAccount.getBalance());
                                     } else {
                                         System.out.println("Cannot get the profit/loss. Not an investment account.");
                                     }
@@ -87,22 +87,35 @@ public class BankManager {
                     myBank.sortAccounts();
                     break;
                 case 4:
-                //display the list of closeable accounts, ask the user if they want to remove the closeable accounts, and remove them from the bank if the user response is yes.
                     BankAccount[] closeableAccounts = myBank.getCloseableAccounts();
-                    for(int i = 0; i < closeableAccounts.length; i++) {
+                    for (int i = 0; i < closeableAccounts.length; i++) {
                         System.out.println(closeableAccounts[i].toString());
                     }
-                    System.out.println("Do you want to remove the closeable accounts? (y/n)");
-                    String response = input.next();
-                    if(response.equals("y")) {
-                        for(int i = 0; i<closeableAccounts.length;i++) {
-                            if(closeableAccounts[i] != null) {
-                            myBank.removeAccount(closeableAccounts[i].getNumber());
+                    if (closeableAccounts.length != 0) {
+                        System.out.println("Do you want to remove them?");
+                        String response = input.next();
+                        if (response.equals("yes")) {
+
+                            for (int i = 0; i < closeableAccounts.length; i++) {
+                                myBank.removeAccount(closeableAccounts[i].getNumber());
+                                System.out.println(closeableAccounts[i].toString() + "removed successfully.");
                             }
                         }
+                    } else {
+                        System.out.println("There are no closeable bank accounts");
                     }
                     break;
                 case 5:
+                    double num = myBank.getTotalFunds();
+                    String nums = String.format("%.2f", num);
+                    System.out.println("Total funds = $" + nums);
+                    System.out.println("Number of customers = " + myBank.size());
+                    if (myBank.isCloseable()) {
+                        System.out.println("This bank is closeable.");
+                    } else {
+                        System.out.println("This bank is not closeable.");
+                    }
+
                     myBank.saveAccount("accounts.txt");
                     break;
                 default:

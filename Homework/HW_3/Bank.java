@@ -116,6 +116,10 @@ public class Bank implements Closeable {
         return null;
     }
 
+    /**
+     * getting total funds in bank accounts
+     * @return double of total
+     */
     public double getTotalFunds() {
         double total = 0;
         for (int i = 0; i < size(); i++) {
@@ -124,6 +128,10 @@ public class Bank implements Closeable {
         return total;
     }
 
+    /**
+     * checks if bank is closeable
+     * @return boolean of if it is true/false
+     */
     public boolean isCloseable() {
         if (getTotalFunds() > 2000000 || size() < 100) {
             return false;
@@ -131,7 +139,11 @@ public class Bank implements Closeable {
             return true;
         }
     }
-    //getCloseableAccounts returns an array of bank accounts that are closeable (i.e, bank accounts for which isCloseable() returns true).
+
+    /**
+     * returns bank accounts that are closeable 
+     * @return BankAccount[] which are closeable
+     */
     public BankAccount[] getCloseableAccounts() {
         BankAccount[] tempAccounts = new BankAccount[count];
         int count = 0;
@@ -152,7 +164,11 @@ public class Bank implements Closeable {
         return closeableAccounts;
     }
 
-
+    /**
+     * removes account in array 
+     * @param number of bankaccount
+     * @return if it was removed
+     */
     public boolean removeAccount(long number) {
         for (int i = 0; i < count; i++) {
             if (accounts[i].getNumber() == number) {
@@ -167,11 +183,15 @@ public class Bank implements Closeable {
     }
 
 
+    /**
+     * Uses java array functions to sort array with compareTo
+     */
     public void sortAccounts() {
         java.util.Arrays.sort(accounts, 0, count);
     }
 
     /**
+     * string of attributes
      * @return String of attributes
      */
     public String toString() {

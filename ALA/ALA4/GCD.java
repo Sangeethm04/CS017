@@ -46,14 +46,14 @@ public class GCD {
     }
 
     public static void main(String[] args) {
-        
+
         System.out.println("Comparison of the execution times");
-        System.out.println("Number1\tNumber2\tTime_1\tTime_2\tTime_3\tTime_4");
+        System.out.println("Number1    Number2    Time_1     Time_2     Time_3     Time_4");
         int random1 = 0;
         int random2 = 0;
         for (int i = 0; i < 20; i++) {
-             random1 = (int)(Math.random() * 1000000);
-             random2 = (int)(Math.random() * 1000000);
+            random1 = (int)(Math.random() * 1000000);
+            random2 = (int)(Math.random() * 1000000);
             long start = System.nanoTime(); // return the current time in ns
             gcd_1(random1, random2);
             long end = System.nanoTime();
@@ -76,8 +76,9 @@ public class GCD {
             long exec4 = (end - start);
 
             System.out.printf("%-10d %-10d %-10d %-10d %-10d %-10d\n", random1, random2, exec1, exec2, exec3, exec4);
+            System.out.printf("%-10d %-10d %-10d %-10d %-10d %-10d\n", random1, random2, iter1, iter2, iter3, iter4);
         }
         System.out.println("Number1\tNumber2\tTime_1\tTime_2\tTime_3\tTime_4");
-        System.out.printf("%-10d %-10d %-10d %-10d %-10d %-10d\n", random1, random2, iter1, iter2, iter3, iter4);
+
     }
 }
