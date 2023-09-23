@@ -8,7 +8,7 @@ public class InvalidAccountNumber extends Exception {
 
     /**
      * constructor for InvalidAccountNumber
-     * @param messageq
+     * @param message
      */
     public InvalidAccountNumber(String message) {
         super(message);

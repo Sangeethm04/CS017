@@ -1,0 +1,10 @@
+Turbo Robot1 4
+Fast Robot2 9
+Turbo Robot3 3
+Sonic Robot4 1
+Fast Robot5 6
+Fast Robot6 8
+Turbo Robot7 5
+Turbo Robot8 6
+Sonic Robot9 2
+Fast Robot10 7
