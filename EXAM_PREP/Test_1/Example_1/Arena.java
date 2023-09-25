@@ -1,3 +1,4 @@
+package Example_1;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -49,9 +50,10 @@ public class Arena {
         }
     }
     public static int readRobots(Robot[] list, String filename) {
+        File fileReader = new File(filename);
         int counts = 0;
         try {
-            Scanner input = new Scanner(new File(filename));
+            Scanner input = new Scanner(fileReader);
             while (input.hasNext()) {
                 String type = input.next();
                 String name = input.next();

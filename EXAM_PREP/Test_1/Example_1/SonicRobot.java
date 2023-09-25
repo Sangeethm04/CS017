@@ -1,3 +1,4 @@
+package Example_1;
 public class SonicRobot extends Robot {
     public SonicRobot(String name, int position) {
         super(name, position);

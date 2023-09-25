@@ -1,0 +1,9 @@
+Book:1111111111:Java Programming:75.00:10:9876543210
+Magazine:2222222222:People:5.00:25:2
+Book:3333333333:Thinker Toys:35.75:7:0123456789
+Gift:7777777777:Coffee mug:9.99:36:Cups
+Magazine:4444444444:Science:15.00:52:1
+Book:9999999999:The Last Lecture:21.99:5:2376541908
+Magazine:5555555555:Travel:7.99:23:10
+Gift:8888888888:T-Shirt:19.99:15:Clothes
+Gift:6666666666:Hoody:24.99:10:Clothes

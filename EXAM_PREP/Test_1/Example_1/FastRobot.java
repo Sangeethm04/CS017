@@ -1,3 +1,4 @@
+package Example_1;
 public class FastRobot extends Robot {
     public FastRobot(String name, int position) {
         super(name, position);

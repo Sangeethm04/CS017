@@ -1,3 +1,4 @@
+package Example_1;
 public abstract class Robot implements Movable, Cloneable, Comparable < Robot > {
     private String name;
     private int position;
