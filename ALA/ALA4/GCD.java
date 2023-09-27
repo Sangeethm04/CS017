@@ -1,5 +1,14 @@
+/**
+ * This program compares the execution times and the number of iterations of four methods
+ */
 public class GCD {
     public static int iter1, iter2, iter3, iter4;
+    /**
+     * This method returns the greatest common divisor of two integers
+     * @param m
+     * @param n
+     * @return
+     */
     public static int gcd_1(int m, int n) {
         iter1 = 0;
         int divisor = 1;
@@ -10,6 +19,13 @@ public class GCD {
         }
         return divisor;
     }
+
+    /**
+     * This method returns the greatest common divisor of two integers
+     * @param m
+     * @param n
+     * @return
+     */
     public static int gcd_2(int m, int n) {
         int divisor = 1;
         iter2 = 0;
@@ -23,7 +39,14 @@ public class GCD {
         return divisor;
     }
 
+    /**
+     * This method returns the greatest common divisor of two integers
+     * @param m
+     * @param n
+     * @return
+     */
     public static int gcd_3(int m, int n) {
+        iter3 = 0;
         int divisor = 1;
         if (m % n == 0)
             return n;
@@ -37,6 +60,12 @@ public class GCD {
         return divisor;
     }
 
+    /**
+     * This method returns the greatest common divisor of two integers
+     * @param m
+     * @param n
+     * @return
+     */
     public static int gcd_4(int m, int n) {
         iter4++;
         if (m % n == 0)
@@ -45,15 +74,17 @@ public class GCD {
             return gcd_4(n, m % n);
     }
 
-    public static void main(String[] args) {
+    /**
+     * Compares the execution times of the four methods
+     */
+    public static void compareExecutionTimes() {
 
         System.out.println("Comparison of the execution times");
         System.out.println("Number1    Number2    Time_1     Time_2     Time_3     Time_4");
-        int random1 = 0;
-        int random2 = 0;
+
         for (int i = 0; i < 20; i++) {
-            random1 = (int)(Math.random() * 1000000);
-            random2 = (int)(Math.random() * 1000000);
+            int random1 = (int)(Math.random() * 1000000);
+            int random2 = (int)(Math.random() * 1000000);
             long start = System.nanoTime(); // return the current time in ns
             gcd_1(random1, random2);
             long end = System.nanoTime();
@@ -76,9 +107,38 @@ public class GCD {
             long exec4 = (end - start);
 
             System.out.printf("%-10d %-10d %-10d %-10d %-10d %-10d\n", random1, random2, exec1, exec2, exec3, exec4);
-            System.out.printf("%-10d %-10d %-10d %-10d %-10d %-10d\n", random1, random2, iter1, iter2, iter3, iter4);
         }
-        System.out.println("Number1\tNumber2\tTime_1\tTime_2\tTime_3\tTime_4");
 
+    }
+
+    /**
+     * Compares the number of iterations of the four methods
+     */
+    public static void compareIterations() {
+        System.out.println("Comparison of the number of iterations");
+        System.out.println("Number1  Number2  Iterations_1 Iterations_2 Iterations_3 Iterations_4");
+
+
+        for (int i = 0; i < 20; i++) {
+            int random1 = (int)(Math.random() * 1000000);
+            int random2 = (int)(Math.random() * 1000000);
+
+            gcd_1(random1, random2);
+            gcd_2(random1, random2);
+            gcd_3(random1, random2);
+            iter4 = 0;
+            gcd_4(random1, random2);
+
+            System.out.printf("%-10d %-10d %-10d %-10d %-10d %-10d\n", random1, random2, iter1, iter2, iter3, iter4);
+
+        }
+    }
+    /**
+     * Main method
+     * @param args
+     */
+    public static void main(String[] args) {
+        compareExecutionTimes();
+        compareIterations();
     }
 }
