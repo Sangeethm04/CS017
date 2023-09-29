@@ -5,6 +5,7 @@ public class GCD {
     public static int iter1, iter2, iter3, iter4;
     /**
      * This method returns the greatest common divisor of two integers
+     * time complexity: O(n)
      * @param m
      * @param n
      * @return
@@ -22,6 +23,7 @@ public class GCD {
 
     /**
      * This method returns the greatest common divisor of two integers
+     * time complexity: O(n)
      * @param m
      * @param n
      * @return
@@ -41,6 +43,7 @@ public class GCD {
 
     /**
      * This method returns the greatest common divisor of two integers
+     * time complexity: O(n)
      * @param m
      * @param n
      * @return
@@ -62,6 +65,7 @@ public class GCD {
 
     /**
      * This method returns the greatest common divisor of two integers
+     * time complexity: O(logn)
      * @param m
      * @param n
      * @return
@@ -142,3 +146,6 @@ public class GCD {
         compareIterations();
     }
 }
+/*
+ * The results are clear that the logn algorithm is the most efficient one. We can see this in the runtimes and the number of iterations. The rest are all O(n) algorithms and therefore relatively similar in speed and number of iterations. The iterations and speed generally correlate with each other. The more iterations, the longer the runtime. Therefore it is clear that using euclid's algorithm is the most efficient way to find the greatest common divisor. This can be applied to say that using a splitting method is generally faster than a linear method. 
+ */
