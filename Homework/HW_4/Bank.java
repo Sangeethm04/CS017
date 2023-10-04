@@ -196,6 +196,55 @@ public class Bank implements Closeable {
         java.util.Arrays.sort(accounts, 0, count);
     }
 
+    public void mergeSort() {
+        mergeSort(accounts);
+    }
+
+    /**
+  Merge sort method
+  @param list to be sorted
+*/
+    public void mergeSort(BankAccount[] list) {
+        if (list.length > 1) { // length==1: base case
+            // split list into two halves
+            BankAccount[] firstHalf = new BankAccount[list.length / 2];
+            BankAccount[] secondHalf = new BankAccount[list.length - list.length / 2];
+            // copy the first half of list into the array firstHalf
+            System.arraycopy(list, 0, firstHalf, 0, list.length / 2);
+            // copy the second half of list into the array secondtHalf
+            System.arraycopy(list, list.length / 2, secondHalf, 0, list.length - list.length / 2);
+            // recursive call on each half
+            mergeSort(firstHalf);
+            mergeSort(secondHalf);
+            // merge the sorted halves back into list
+            merge(firstHalf, secondHalf, list);
+        }
+    }
+    /**
+      merge method used by mergeSort
+      @param list where the merged elements will be stored
+      @param list1 the first sorted list to be merged
+      @param list2 the second sorted list to be merged
+    */
+    public void merge(BankAccount[] list1, BankAccount[] list2, BankAccount[] list) {
+        int list1Index = 0;
+        int list2Index = 0;
+        int listIndex = 0;
+        while (list1Index < list1.length && list2Index < list2.length) {
+            // order array by owners name
+            if (list1[list1Index].getOwner().compareTo(list2[list2Index].getOwner()) < 0)
+                list[listIndex++] = list1[list1Index++];
+            else
+                list[listIndex++] = list2[list2Index++];
+    }
+        // copy the remaining elements of list1 if list1 is longer than list2
+        while (list1Index < list1.length)
+            list[listIndex++] = list1[list1Index++];
+        // copy the remaining elements of list2 if list2 is longer than list1
+        while (list2Index < list2.length)
+            list[listIndex++] = list2[list2Index++];
+    }
+
     /**
      * string of attributes
      * @return String of attributes

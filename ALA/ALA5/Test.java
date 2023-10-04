@@ -2,8 +2,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * class Test
+ */
 public class Test {
+    /**
+     * main method
+     * @param args
+     */
     public static void main(String[] args) {
         String type = args[0];
         int operation = 0;
@@ -30,11 +36,9 @@ public class Test {
                         break;
                     case 3: // sort by name
                         states.sort(new ComparatorByFirst());
-                        print(states);
                         break;
                     case 4: //
                         states.sort(new ComparatorBySecond());
-                        print(states);
                         break;
                     case 5:
                         break;
@@ -50,6 +54,10 @@ public class Test {
 
 
         }
+
+        /**
+         * printMenu method
+         */
         public static void printMenu() {
             System.out.println("Select an operation.");
             System.out.println("1: view the states");
@@ -59,6 +67,11 @@ public class Test {
             System.out.println("5: exit");
         }
 
+        /**
+         * readStates method
+         * @param list
+         * @param filename
+         */
         public static void readStates(ArrayList < Pair < String, String >> list, String filename) {
             try {
                 Scanner read = new Scanner(new File(filename));
@@ -76,6 +89,11 @@ public class Test {
             }
         }
 
+        /**
+         * readTrees method
+         * @param trees
+         * @param filename
+         */
         public static void readTrees(ArrayList < Pair < String, Integer >> trees, String filename) {
             try {
                 Scanner read = new Scanner(new File(filename));
@@ -92,6 +110,14 @@ public class Test {
                 System.out.println("File not found");
             }
         }
+        /**
+         * search method
+         * @param <E1>
+         * @param <E2>
+         * @param list
+         * @param key
+         * @return
+         */
         public static < E1, E2 > int search(ArrayList < Pair < E1, E2 >> list, E1 key) {
             for (int i = 0; i < list.size(); i++) {
                 Pair < E1, E2 > pair = list.get(i); // get the pair at index i
@@ -102,6 +128,10 @@ public class Test {
             return -1;
         }
 
+        /**
+         * print method
+         * @param <E> list
+         */
         public static < E > void print(ArrayList < E > list) {
             for (E element: list) {
                 System.out.println(element); //toString called by deafult

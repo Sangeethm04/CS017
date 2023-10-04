@@ -14,8 +14,9 @@ public class BankManager {
             System.out.println("1: View accounts");
             System.out.println("2: Manage account");
             System.out.println("3: Sort accounts by balance");
-            System.out.println("4: View closeable accounts");
-            System.out.println("5: Exit");
+            System.out.println("4: Sort accounts by owner");
+            System.out.println("5: View closeable accounts");
+            System.out.println("6: Exit");
             operation = input.nextInt();
             switch (operation) {
                 case 1:
@@ -86,7 +87,11 @@ public class BankManager {
                 case 3:
                     myBank.sortAccounts();
                     break;
+
                 case 4:
+                    myBank.mergeSort();
+                    break;
+                case 5:
                     BankAccount[] closeableAccounts = myBank.getCloseableAccounts();
                     for (int i = 0; i < closeableAccounts.length; i++) {
                         System.out.println(closeableAccounts[i].toString());
@@ -105,7 +110,7 @@ public class BankManager {
                         System.out.println("There are no closeable bank accounts");
                     }
                     break;
-                case 5:
+                case 6:
                     double num = myBank.getTotalFunds();
                     String nums = String.format("%.2f", num);
                     System.out.println("Total funds = $" + nums);
