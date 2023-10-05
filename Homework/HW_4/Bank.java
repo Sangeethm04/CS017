@@ -200,22 +200,29 @@ public class Bank implements Closeable {
         mergeSort(accounts);
     }
 
+
+    public void mergeSort(BankAccount[] list) {
+        mergeSort(list, count);
+    }
+
     /**
   Merge sort method
   @param list to be sorted
-*/
-    public void mergeSort(BankAccount[] list) {
-        if (list.length > 1) { // length==1: base case
+  @param size # of items to sort
+    */
+
+    public void mergeSort(BankAccount[] list, int size) {
+        if (size > 1) { // length==1: base case
             // split list into two halves
-            BankAccount[] firstHalf = new BankAccount[list.length / 2];
-            BankAccount[] secondHalf = new BankAccount[list.length - list.length / 2];
+            BankAccount[] firstHalf = new BankAccount[size / 2];
+            BankAccount[] secondHalf = new BankAccount[size - (size / 2)];
             // copy the first half of list into the array firstHalf
-            System.arraycopy(list, 0, firstHalf, 0, list.length / 2);
+            System.arraycopy(list, 0, firstHalf, 0, size / 2);
             // copy the second half of list into the array secondtHalf
-            System.arraycopy(list, list.length / 2, secondHalf, 0, list.length - list.length / 2);
+            System.arraycopy(list, size / 2, secondHalf, 0, size - (size / 2));
             // recursive call on each half
-            mergeSort(firstHalf);
-            mergeSort(secondHalf);
+            mergeSort(firstHalf, size / 2);
+            mergeSort(secondHalf, size - (size / 2));
             // merge the sorted halves back into list
             merge(firstHalf, secondHalf, list);
         }
@@ -236,7 +243,7 @@ public class Bank implements Closeable {
                 list[listIndex++] = list1[list1Index++];
             else
                 list[listIndex++] = list2[list2Index++];
-    }
+        }
         // copy the remaining elements of list1 if list1 is longer than list2
         while (list1Index < list1.length)
             list[listIndex++] = list1[list1Index++];
