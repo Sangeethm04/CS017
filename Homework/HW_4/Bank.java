@@ -14,6 +14,7 @@ public class Bank implements Closeable {
     /**
      * Default constructor
      */
+    //time complexity: O(1)
     public Bank() {
         accounts = new BankAccount[50];
         count = 0;
@@ -23,11 +24,17 @@ public class Bank implements Closeable {
      * constructor for Bank class
      * @param filename
      */
+    //time complexity: O(n)
     public Bank(String filename) {
         accounts = new BankAccount[100];
         count = readAccounts(filename);
     }
 
+    /**
+     * getter for count
+     * @return int of the # in array
+     */
+    //time complexity: O(1)
     public int size() {
         return count;
     }
@@ -37,6 +44,7 @@ public class Bank implements Closeable {
      * @param filename
      * @return int of count
      */
+    //time complexity: O(n)
     private int readAccounts(String filename) {
         File file = new File(filename);
         count = 0;
@@ -72,6 +80,7 @@ public class Bank implements Closeable {
      * Saves account to file
      * @param filename
      */
+    //time complexity: O(n)
     public void saveAccount(String filename) {
         File file = new File(filename);
         try {
@@ -98,6 +107,7 @@ public class Bank implements Closeable {
      * Adds account to array of BankAccount
      * @param ba
      */
+    //time complexity: O(1)
     public void addAccount(BankAccount ba) {
         accounts[count] = ba;
         count++;
@@ -107,11 +117,19 @@ public class Bank implements Closeable {
      * @param number
      * @return
      */
+    //time complexity: O(n)
     public BankAccount findAccount(long number) {
         //write recursive method to find account by calling on the findaccount method again
         return findAccount(number, size());
     }
 
+    /**
+     * Finds account using number
+     * @param number
+     * @param size
+     * @return BankAccount of the found account
+     */
+    //time complexity O(n)
     public BankAccount findAccount(long number, int size) {
         if (size == 0) {
             return null;
@@ -126,6 +144,7 @@ public class Bank implements Closeable {
      * getting total funds in bank accounts
      * @return double of total
      */
+    //time complexity: O(n)
     public double getTotalFunds() {
         double total = 0;
         for (int i = 0; i < size(); i++) {
@@ -138,8 +157,9 @@ public class Bank implements Closeable {
      * checks if bank is closeable
      * @return boolean of if it is true/false
      */
+    //time complexity: O(n)
     public boolean isCloseable() {
-        if (getTotalFunds() > 2000000 || size() < 100) {
+        if (getTotalFunds() > 2000000 || size() > 100) {
             return false;
         } else {
             return true;
@@ -150,6 +170,7 @@ public class Bank implements Closeable {
      * returns bank accounts that are closeable 
      * @return BankAccount[] which are closeable
      */
+    //time complexity: O(n)
     public BankAccount[] getCloseableAccounts() {
         BankAccount[] tempAccounts = new BankAccount[count];
         int count = 0;
@@ -175,6 +196,7 @@ public class Bank implements Closeable {
      * @param number of bankaccount
      * @return if it was removed
      */
+    //time complexity: O(n)
     public boolean removeAccount(long number) {
         for (int i = 0; i < count; i++) {
             if (accounts[i].getNumber() == number) {
@@ -192,25 +214,26 @@ public class Bank implements Closeable {
     /**
      * Uses java array functions to sort array with compareTo
      */
+    //time complexity: O(nlogn)
     public void sortAccounts() {
         java.util.Arrays.sort(accounts, 0, count);
     }
 
+    /**
+     * Helper method to use mergeSort to sort array
+     */
+    //time complexity: O(nlogn)
     public void mergeSort() {
-        mergeSort(accounts);
+        mergeSort(accounts, count);
     }
 
-
-    public void mergeSort(BankAccount[] list) {
-        mergeSort(list, count);
-    }
 
     /**
   Merge sort method
   @param list to be sorted
   @param size # of items to sort
     */
-
+    //time complexity: O(nlogn)
     public void mergeSort(BankAccount[] list, int size) {
         if (size > 1) { // length==1: base case
             // split list into two halves
@@ -233,6 +256,7 @@ public class Bank implements Closeable {
       @param list1 the first sorted list to be merged
       @param list2 the second sorted list to be merged
     */
+    //time complexity: O(n)
     public void merge(BankAccount[] list1, BankAccount[] list2, BankAccount[] list) {
         int list1Index = 0;
         int list2Index = 0;
@@ -256,6 +280,7 @@ public class Bank implements Closeable {
      * string of attributes
      * @return String of attributes
      */
+    //time complexity: O(n)
     public String toString() {
         System.out.println("Type\t\tNumber\t\tOwner\t\t\t\tBalance\t\tInterest/InvestmentType");
         String out = "";

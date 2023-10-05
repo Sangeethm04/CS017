@@ -8,7 +8,7 @@ public class BankManager {
         Scanner input = new Scanner(System.in);
         Bank myBank = new Bank("accounts.txt");
         int operation = 0;
-        while (operation != 5) {
+        while (operation != 6) {
             System.out.println();
             System.out.println("Select an operation:");
             System.out.println("1: View accounts");
