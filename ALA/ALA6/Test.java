@@ -9,44 +9,53 @@ public class Test {
     public static void main(String[] args) {
         Stack < Integer > postfixStack = new Stack < > ();
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("Enter a postfix expression");
-        String expression = keyboard.nextLine();
-        String[] tokens = expression.split(" ");
-        try {
-            for (String token: tokens) {
-                if (token.matches("\\d{1,}")) {
-                    int operand = Integer.parseInt(token);
-                    postfixStack.push(operand);
-                } else {
-                    int operand1 = postfixStack.pop();
-                    int operand2 = postfixStack.pop();
-                    switch (token) {
-                        case "+":
-                            postfixStack.push(operand2 + operand1);
-                            break;
-                        case "-":
-                            postfixStack.push(operand2 - operand1);
-                            break;
-                        case "*":
-                            postfixStack.push(operand2 * operand1);
-                            break;
-                        case "/":
-                            postfixStack.push(operand2 / operand1);
-                            break;
-                        default:
-                            System.out.println("Invalid operation");
+        String expression = "";
+        String[] tokens;
+        do {
+            System.out.println("Enter a postfix expression:");
+            expression = keyboard.nextLine();
+            tokens = expression.split(" ");
+            try {
+                for (String token: tokens) {
+                    if (token.matches("\\d{1,}")) {
+                        int operand = Integer.parseInt(token);
+                        postfixStack.push(operand);
+                    } else {
+                        int operand1 = postfixStack.pop();
+                        int operand2 = postfixStack.pop();
+                        switch (token) {
+                            case "+":
+                                postfixStack.push(operand2 + operand1);
+                                break;
+                            case "-":
+                                postfixStack.push(operand2 - operand1);
+                                break;
+                            case "*":
+                                postfixStack.push(operand2 * operand1);
+                                break;
+                            case "/":
+                                postfixStack.push(operand2 / operand1);
+                                break;
+                            default:
+                                System.out.println("Invalid operation");
+                        }
                     }
                 }
-            }
-            int result = postfixStack.pop();
-            if (postfixStack.isEmpty()) {
-                System.out.println("Result = " + result);
-            } else {
+                int result = postfixStack.pop();
+                if (postfixStack.isEmpty()) {
+                    System.out.println("Result = " + result);
+                } else {
+                    System.out.println("Malformed postfix expression");
+                    System.out.println("Do you want to evaluate another postfix expression? (yes/no):");
+                    expression = keyboard.nextLine();
+                }
+            } catch (EmptyStackException e) {
                 System.out.println("Malformed postfix expression");
+                System.out.println("Do you want to evaluate another postfix expression? (yes/no):");
+                expression = keyboard.nextLine();
+
             }
-        } catch (EmptyStackException e) {
-            System.out.println("Malformed postfix expression");
-        }
+        } while (!expression.equals("no"));
 
         // Using the priority Queue
         PriorityQueue < PrintRequest > printingQueue = new PriorityQueue < > ();

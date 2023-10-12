@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * class BankManager
@@ -15,7 +16,7 @@ public class BankManager {
             System.out.println("2: Manage account");
             System.out.println("3: Sort accounts by balance");
             System.out.println("4: Sort accounts by owner");
-            System.out.println("5: View closeable accounts");
+            System.out.println("5: Sort accounts by number");
             System.out.println("6: Exit");
             operation = input.nextInt();
             switch (operation) {
@@ -85,30 +86,14 @@ public class BankManager {
 
                     break;
                 case 3:
-                    myBank.sortAccounts();
+                    myBank.sortAccounts(new ComparatorByBalance());
                     break;
 
                 case 4:
-                    myBank.mergeSort();
+                    myBank.sortAccounts(new ComparatorByOwner());
                     break;
                 case 5:
-                    BankAccount[] closeableAccounts = myBank.getCloseableAccounts();
-                    for (int i = 0; i < closeableAccounts.length; i++) {
-                        System.out.println(closeableAccounts[i].toString());
-                    }
-                    if (closeableAccounts.length != 0) {
-                        System.out.println("Do you want to remove them?");
-                        String response = input.next();
-                        if (response.equals("yes")) {
-
-                            for (int i = 0; i < closeableAccounts.length; i++) {
-                                myBank.removeAccount(closeableAccounts[i].getNumber());
-                                System.out.println(closeableAccounts[i].toString() + "removed successfully.");
-                            }
-                        }
-                    } else {
-                        System.out.println("There are no closeable bank accounts");
-                    }
+                    myBank.sortAccounts(new ComparatorByNumber());
                     break;
                 case 6:
                     double num = myBank.getTotalFunds();

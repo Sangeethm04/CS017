@@ -1,13 +1,7 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Utility {
-    /**
-     * Helper method to use mergeSort to sort array
-     */
-    //time complexity: O(nlogn)
-    private void mergeSort() {
-        mergeSort(accounts, count);
-    }
 
 
     /**
@@ -16,21 +10,35 @@ public class Utility {
   @param size # of items to sort
     */
     //time complexity: O(nlogn)
-    private static void mergeSort(ArrayList < E > list, Comparator<E> c) {
-        if (size > 1) { // length==1: base case
+    public static < E > void mergeSort(ArrayList < E > list, Comparator < E > c) {
+        if (list.size() > 1) { // length==1: base case
             // split list into two halves
-            ArrayList < BankAccount > firstHalf = new ArrayList < > (size / 2);
-            ArrayList < BankAccount > secondHalf = new ArrayList < > (size - (size / 2));
+            ArrayList < E > firstHalf = subList(list, 0, list.size() / 2);
+            ArrayList < E > secondHalf = subList(list, list.size() / 2, (list.size() - (list.size() / 2)));
             // copy the first half of list into the array firstHalf
-            System.arraycopy(list, 0, firstHalf, 0, size / 2);
+            firstHalf = subList(list, 0, list.size() / 2);
             // copy the second half of list into the array secondtHalf
-            System.arraycopy(list, size / 2, secondHalf, 0, size - (size / 2));
+            secondHalf = subList(list, 0, list.size() - (list.size() / 2));
             // recursive call on each half
-            mergeSort(firstHalf, size / 2);
-            mergeSort(secondHalf, size - (size / 2));
+            mergeSort(firstHalf, c);
+            mergeSort(secondHalf, c);
             // merge the sorted halves back into list
-            merge(firstHalf, secondHalf, list);
+            merge(firstHalf, secondHalf, list, c);
         }
+    }
+
+    public static < E > ArrayList < E > subList(ArrayList < E > ray, int start, int end) throws ArrayIndexOutOfBoundsException {
+        if (start > ray.size() || start < 0 || end > ray.size() || end < 0 || start > end) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        if (start == end) {
+            return null;
+        }
+        ArrayList < E > tempArray = new ArrayList < > ();
+        for (int i = start; i < end; i++) {
+            tempArray.add(ray.get(i));
+        }
+        return tempArray;
     }
     /**
       merge method used by mergeSort
@@ -39,7 +47,7 @@ public class Utility {
       @param list2 the second sorted list to be merged
     */
     //time complexity: O(n)
-    private static void merge(ArrayList < BankAccount > list1, ArrayList < BankAccount > list2, ArrayList < BankAccount > list) {
+    public static < E > void merge(ArrayList < E > 11, ArrayList < E > 12, ArrayList < E > 1, Comparator < E > c) {
         int list1Index = 0;
         int list2Index = 0;
         int listIndex = 0;
@@ -56,9 +64,5 @@ public class Utility {
         // copy the remaining elements of list2 if list2 is longer than list1
         while (list2Index < list2.size())
             list[listIndex++] = list2[list2Index++];
-    }
-
-    private ArrayList<E> subList() {
-
     }
 }

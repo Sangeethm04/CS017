@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 
 /**
@@ -17,9 +18,6 @@ public class Bank implements Closeable {
      */
     //time complexity: O(1)
     public Bank() {
-        for (int i = 0; i < 50; i++) {
-            accounts.add(null);
-        }
         count = 0;
     }
 
@@ -29,9 +27,6 @@ public class Bank implements Closeable {
      */
     //time complexity: O(n)
     public Bank(String filename) {
-        for (int i = 0; i < 100; i++) {
-            accounts.add(null);
-        }
         count = readAccounts(filename);
     }
 
@@ -221,7 +216,7 @@ public class Bank implements Closeable {
      */
     //time complexity: O(nlogn)
     public void sortAccounts(Comparator < BankAccount > c) {
-        java.util.Arrays.sort(accounts, 0, count);
+        Utility.mergeSort(accounts, c);
     }
 
 
