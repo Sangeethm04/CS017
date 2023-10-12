@@ -10,15 +10,14 @@ import java.util.Comparator;
  * class Bank to model entity Bank
  */
 public class Bank implements Closeable {
-    private ArrayList < BankAccount > accounts;
-    private int count;
+    private ArrayList < BankAccount > accounts; 
 
     /**
      * Default constructor
      */
     //time complexity: O(1)
     public Bank() {
-        count = 0;
+      accounts  = new ArrayList<>();
     }
 
     /** 
@@ -27,7 +26,8 @@ public class Bank implements Closeable {
      */
     //time complexity: O(n)
     public Bank(String filename) {
-        count = readAccounts(filename);
+        accounts  = new ArrayList<>();
+        readAccounts(filename);
     }
 
     /**
@@ -36,7 +36,7 @@ public class Bank implements Closeable {
      */
     //time complexity: O(1)
     public int size() {
-        return count;
+        return accounts.size();
     }
 
     /**
@@ -45,9 +45,8 @@ public class Bank implements Closeable {
      * @return int of count
      */
     //time complexity: O(n)
-    private int readAccounts(String filename) {
+    private void readAccounts(String filename) {
         File file = new File(filename);
-        count = 0;
         try {
             Scanner readFile = new Scanner(file);
             String[] attributes = new String[4];
@@ -64,15 +63,11 @@ public class Bank implements Closeable {
                 if (attributes[0].equals("Investment")) {
                     accounts.add(new Investment(Long.valueOf(attributes[1]), attributes[2], Double.parseDouble(attributes[3]), attributes[4]));
                 }
-                count++;
             }
             readFile.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found" + e);
         }
-        return count;
-
-
     }
 
 
@@ -85,7 +80,7 @@ public class Bank implements Closeable {
         File file = new File(filename);
         try {
             PrintWriter filewriter = new PrintWriter(file);
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < accounts.size(); i++) {
                 if (accounts.get(i) instanceof Checking) {
                     filewriter.println("Checking|" + accounts.get(i).getNumber() + "|" + accounts.get(i).getOwner() + "|" + accounts.get(i).getBalance());
                 } else if (accounts.get(i) instanceof Savings) {
@@ -110,7 +105,6 @@ public class Bank implements Closeable {
     //time complexity: O(1)
     public void addAccount(BankAccount ba) {
         accounts.add(ba);
-        count++;
     }
     /**
      * Finds account using number
@@ -172,9 +166,9 @@ public class Bank implements Closeable {
      */
     //time complexity: O(n)
     public ArrayList < BankAccount > getCloseableAccounts() {
-        ArrayList < BankAccount > tempAccounts = new ArrayList < > (count);
+        ArrayList < BankAccount > tempAccounts = new ArrayList < > (accounts.size());
         int count = 0;
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < accounts.size(); i++) {
             if (accounts.get(i).isCloseable()) {
                 tempAccounts.set(count, accounts.get(i));
                 count++;
@@ -182,7 +176,7 @@ public class Bank implements Closeable {
         }
         ArrayList < BankAccount > closeableAccounts = new ArrayList < > (count);
 
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < accounts.size(); i++) {
             if (tempAccounts.get(i) != null) {
                 closeableAccounts.set(i, tempAccounts.get(i));
             }
@@ -198,12 +192,12 @@ public class Bank implements Closeable {
      */
     //time complexity: O(n)
     public boolean removeAccount(long number) {
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < accounts.size(); i++) {
             if (accounts.get(i).getNumber() == number) {
-                for (int j = i; j < count; j++) {
+                for (int j = i; j < accounts.size() - 2; j++) {
                     accounts.set(j, accounts.get(j + 1));
                 }
-                count--;
+        
                 return true;
             }
         }
@@ -228,7 +222,7 @@ public class Bank implements Closeable {
     public String toString() {
         System.out.println("Type\t\tNumber\t\tOwner\t\t\t\tBalance\t\tInterest/InvestmentType");
         String out = "";
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < accounts.size(); i++) {
             out += accounts.get(i).toString();
         }
         return out;
