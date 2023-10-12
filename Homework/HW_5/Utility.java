@@ -14,7 +14,7 @@ public class Utility {
         if (list.size() > 1) { // length==1: base case
             // split list into two halves
             ArrayList < E > firstHalf = subList(list, 0, list.size() / 2);
-            ArrayList < E > secondHalf = subList(list, list.size() / 2, (list.size() - (list.size() / 2)));
+            ArrayList < E > secondHalf = subList(list, list.size()/2, list.size());
             // recursive call on each half
             mergeSort(firstHalf, c);
             mergeSort(secondHalf, c);
@@ -43,7 +43,7 @@ public class Utility {
       @param list2 the second sorted list to be merged
     */
     //time complexity: O(n)
-    public static < E > void merge(ArrayList < E > list, ArrayList < E > list1, ArrayList < E > list2, Comparator < E > c) {
+    public static < E > void merge(ArrayList < E > list1, ArrayList < E > list2, ArrayList < E > list, Comparator < E > c) {
         int list1Index = 0;
         int list2Index = 0;
         int listIndex = 0;
