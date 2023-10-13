@@ -23,6 +23,14 @@ public class Utility {
         }
     }
 
+    /**
+     * returns a sublist of an arraylist
+     * @param <E> ray
+     * @param start
+     * @param end
+     * @return ArrayList < E > sublist
+     * @throws IndexOutOfBoundsException
+     */
     public static < E > ArrayList < E > subList(ArrayList < E > ray, int start, int end) throws IndexOutOfBoundsException {
         if (start > ray.size() || start < 0 || end > ray.size() || end < 0 || start > end) {
             throw new IndexOutOfBoundsException();
