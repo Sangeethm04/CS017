@@ -55,6 +55,7 @@ public class Test {
                 expression = keyboard.nextLine();
 
             }
+            postfixStack.clear();
         } while (!expression.equals("no"));
 
         // Using the priority Queue
