@@ -1,5 +1,4 @@
 import java.util.Iterator;
-import java.util.ArrayList;
 public class Test {
 	public static void main(String[] args) {
         /**
@@ -30,7 +29,7 @@ public class Test {
         cityAL.remove(1);
         System.out.println(cityAL.toString());
         
-        /*
+        
         // Testing LinkedList
         System.out.println("\nLinkedList:");
         LinkedList<String> cityLL = new LinkedList<>();
@@ -52,7 +51,7 @@ public class Test {
         System.out.println(cityLL.toString());
         cityLL.removeLast();
         System.out.println(cityLL.toString());
-        */
+        
 
         /*
         //Testing Stack
