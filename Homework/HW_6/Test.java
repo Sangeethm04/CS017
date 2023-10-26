@@ -256,6 +256,7 @@ public class Test{
             System.out.println(listIter.next().getName() + "\t\t" + listIter.previous().getTotalEmissions());
             listIter.next();
         }
+
     }
     /**
      * method to print the ten top countries with the highest carbon emissions from 2005 to 2019
@@ -264,8 +265,11 @@ public class Test{
      */
     public static void printTenTopHighestEmissions(ArrayList<Country> list){
         ListIterator<Country> listIter = list.listIterator();
-
-        for(int i = list.size(); i<list.size()-10; i++) {
+        System.out.println("Ten Top Countries with the Highest Carbon Emission");
+        while(listIter.hasNext()) {
+            listIter.next();
+        }
+        for(int i = list.size(); i>list.size()-10; i--) {
             System.out.println(listIter.previous().getName());
         }
  
