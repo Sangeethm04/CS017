@@ -266,11 +266,13 @@ public class Test{
     public static void printTenTopHighestEmissions(ArrayList<Country> list){
         ListIterator<Country> listIter = list.listIterator();
         System.out.println("Ten Top Countries with the Highest Carbon Emission");
+        System.out.println("Country \t\t\tCarbon Emission (Tons)");
         while(listIter.hasNext()) {
             listIter.next();
         }
         for(int i = list.size(); i>list.size()-10; i--) {
-            System.out.println(listIter.previous().getName());
+            Country c = listIter.previous();
+            System.out.println(c.getName() + "\t\t" + c.getTotalEmissions());
         }
  
     }
