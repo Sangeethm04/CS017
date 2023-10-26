@@ -203,34 +203,39 @@ public class Test{
         @param type true for carbon emissions in tons, false for carbo emission in tons per capita
         @return the country with the extreme emission at the given year
      */
-    //returns the country with the highest (minMax = true) or the lowest (minMax = false) carbon emissions in tons (type = true) or carbon emission per capita 
-    public static Country extremeEmission(ArrayList<Country> list, int year, boolean minMax, boolean type){
+     public static Country extremeEmission(ArrayList<Country> list, int year, boolean minMax, boolean type){
+        ListIterator<Country> listIter = list.listIterator();
         Country a = list.get(0);
         if(minMax) {
             if(type) {
-                for(int i = 0; i<list.size(); i++) {
-                    if(list.get(i).getEmission(year).next().getSecond() > a.getEmission(year).next().getSecond()) {
-                        a = list.get(i);
+                while(listIter.hasNext()) {
+                    Country b = listIter.next();
+                    if(b.getTotalEmissions()  > a.getTotalEmissions()) {
+                        a = b;
                     }
                 }
             } else {
-                for(int i = 0; i<list.size(); i++) {
-                    if(list.get(i).getEmissionPerCapita(year).next().getSecond() > a.getEmissionPerCapita(year).next().getSecond()) {
-                        a = list.get(i);
+               while(listIter.hasNext()) {
+                    Country b = listIter.next();
+                    if(b.getEmissionPerCapita(year).next().getSecond()  > a.getEmissionPerCapita(year).next().getSecond()) {
+                        a = b;
                     }
-                }
+
+               }
             }
         } else {
              if(type) {
-                for(int i = 0; i<list.size(); i++) {
-                    if(list.get(i).getEmission(year).next().getSecond() < a.getEmission(year).next().getSecond()) {
-                        a = list.get(i);
+              while(listIter.hasNext()) {
+                    Country b = listIter.next();
+                    if(b.getTotalEmissions()  < a.getTotalEmissions()) {
+                        a = b;
                     }
                 }
             } else {
-                for(int i = 0; i<list.size(); i++) {
-                    if(list.get(i).getEmissionPerCapita(year).next().getSecond() < a.getEmissionPerCapita(year).next().getSecond()) {
-                        a = list.get(i);
+                while(listIter.hasNext()) {
+                    Country b = listIter.next();
+                    if(b.getEmissionPerCapita(2019).next().getSecond() < a.getEmissionPerCapita(year).next().getSecond()) {
+                        a=b;
                     }
                 }
             }
@@ -245,9 +250,11 @@ public class Test{
     //prints the top ten countries with the lowest carbon emissions. The list is sorted by the total carbon emissions. This method should use a forward iterator to print the first ten countries from the list. You must define this method.
     public static void printTenTopLowestEmissions(ArrayList<Country> list){
         ListIterator<Country> listIter = list.listIterator();
-
+        System.out.println("Ten Top Countries with the Lowest Carbon Emission Country");
+        System.out.println("Country \t\tCarbon Emission (Tons)");
         for(int i = 0; i<10; i++) {
-            System.out.println(listIter.next().getName());
+            System.out.println(listIter.next().getName() + "\t\t" + listIter.previous().getTotalEmissions());
+            listIter.next();
         }
     }
     /**
