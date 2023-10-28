@@ -185,7 +185,7 @@ public class Test{
      * @param c the country the method is searching for
      * @return a ListIterator object pointing to the country found in list, null if c is not found
      */
-    
+    //time complexity: O(n)
     public static ListIterator<Country> findCountry(ArrayList<Country> list, Country c){
         ListIterator<Country> listIter = list.listIterator();
         while(listIter.hasNext()){
@@ -203,6 +203,7 @@ public class Test{
         @param type true for carbon emissions in tons, false for carbo emission in tons per capita
         @return the country with the extreme emission at the given year
      */
+    //Time complexity: O(n)
      public static Country extremeEmission(ArrayList<Country> list, int year, boolean minMax, boolean type){
         ListIterator<Country> listIter = list.listIterator();
         Country a = list.get(0);
@@ -247,7 +248,7 @@ public class Test{
      * this method must use a forward iterator
      * @param list of countries sorted by their total carbon emissions
      */
-    //prints the top ten countries with the lowest carbon emissions. The list is sorted by the total carbon emissions. This method should use a forward iterator to print the first ten countries from the list. You must define this method.
+    //Time complexity: O(1)
     public static void printTenTopLowestEmissions(ArrayList<Country> list){
         ListIterator<Country> listIter = list.listIterator();
         System.out.println("Ten Top Countries with the Lowest Carbon Emission Country");
@@ -263,6 +264,7 @@ public class Test{
      * this method must use a backward iterator
      * @param list of countries sorted by their total carbon emissions
      */
+    //Time complexity: O(1)
     public static void printTenTopHighestEmissions(ArrayList<Country> list){
         ListIterator<Country> listIter = list.listIterator();
         System.out.println("Ten Top Countries with the Highest Carbon Emission");
