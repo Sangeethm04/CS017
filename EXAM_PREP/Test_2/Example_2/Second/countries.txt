@@ -1,0 +1,20 @@
+AO|Angola|1246700
+BR|Brazil|8358140
+ST|Saint Lucia|606
+HR|Croatia|55974
+ES|El Salvador|20721
+GB|Gabon|257667
+GT|Guatemala|107159
+TN|Tonga|717
+ID|Indonesia|1811569
+KZ|Kazakhstan|2699700
+LT|Lesotho|30355
+US|United States|9148655
+CT|Central African Republic|622984
+NG|Niger|1266700
+MV|Maldives|298
+MJ|Montenegro|13452
+SL|Sierra Leone|71620
+RP|Philippines|298170
+SU|Sudan|1861484
+BG|Bangladesh|130170

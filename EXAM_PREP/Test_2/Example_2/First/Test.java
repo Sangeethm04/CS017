@@ -112,13 +112,13 @@ public class Test {
 			currentMinIndex = i;
 			currentMin = list.get(i);
 			for (int j = i + 1; j < list.size(); j++) {
-				if (c.compare(currentMin, list.get(j)) > 0 ) {
+				if (c.compare(currentMin, list.get(j)) > 0) {
 					currentMin = list.get(j);
 					currentMinIndex = j;
 				}
 			}
 			list.set(currentMinIndex, list.get(i));
-			list.set(i,currentMin);
+			list.set(i, currentMin);
 		}
 	}
 
