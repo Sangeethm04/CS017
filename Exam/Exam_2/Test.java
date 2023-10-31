@@ -141,22 +141,21 @@ public class Test {
     // returns the list of  messages sent at the date d, null if no messages were found
     //O(n)
     public static ArrayList < Message > findMessages(List < Message > list, Date d) {
-    ArrayList<Message> messages = new ArrayList<>();
-    Iterator<Message> iter = list.iterator();
-     return findMessages(d, iter, messages);
+        ArrayList < Message > messages = new ArrayList < > ();
+        Iterator < Message > iter = list.iterator();
+        return findMessages(d, iter, messages);
 
 
     }
-    //Define the method findMessages that accepts a list of messages and a Date object d, and returns the list of messages that were sent on the date d. The method returns null if no messages were found. The method must be recursive and use an iterator.
     public static ArrayList < Message > findMessages(Date d, Iterator < Message > iter, ArrayList < Message > messages) {
-        if(!iter.hasNext()) {
+        if (!iter.hasNext()) {
             return messages;
         }
         Message message = iter.next();
-        if(message.getDate().equals(d)) {
+        if (message.getDate().equals(d)) {
             messages.add(message);
-        } 
-            return findMessages(d, iter, messages);
+        }
+        return findMessages(d, iter, messages);
 
     }
 
