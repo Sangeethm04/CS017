@@ -26,7 +26,7 @@ public class Bank implements Closeable {
      */
     //time complexity: O(n)
     public Bank(String filename) {
-        accounts  = new ArrayList<>();
+        accounts  = new ArrayList<>(50);
         readAccounts(filename);
     }
 

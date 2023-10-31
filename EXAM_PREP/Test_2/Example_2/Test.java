@@ -47,7 +47,7 @@ public class Test {
 		combineAll(all, lists[1]);
 		combineAll(all, lists[2]);
 		System.out.println("\nAll lists combined and sorted: ");
-		sort(all, new ComparatorByArea());
+		Collections.sort(all, new ComparatorByArea());
 		printList(all);
 
 	}
@@ -85,7 +85,6 @@ public class Test {
 	public static < E > int search(List < E > list, E key) {
 		return search(list, key, 0);
 	}
-	//The program searches for a country name in the three lists using a generic searchmethod that returns the index at which the country is found or -1 otherwise. Write thedefinition of the function search with the signature below. The method must begeneric and implemented using recursion.
 	public static < E > int search(List < E > list, E key, int index) {
 		if (index == list.size()) {
 			return -1;
