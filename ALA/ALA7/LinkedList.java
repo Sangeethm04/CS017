@@ -4,7 +4,9 @@ import java.util.NoSuchElementException;
     LinkedList Generic Class
  */
 public class LinkedList < E > {
-    public static int containsIterations, addIterations, removeIterations;
+    public static int containsIterations,
+    addIterations,
+    removeIterations;
     // Data members
     private Node head,
     tail;
@@ -208,8 +210,12 @@ public class LinkedList < E > {
             return value;
         }
     }
-    //conatins method
     //O(n)
+    /**
+     * method contains that checks if an object is in the list
+     * @param o object to check
+     * @return boolean 
+     */
     public boolean contains(Object o) {
         containsIterations = 0;
         Iterator < E > iter = iterator();
@@ -223,10 +229,14 @@ public class LinkedList < E > {
         }
         return false;
     }
-
+    /**
+     * method remove that removes object from list
+     * @param o object to remove
+     * @return boolean
+     */
     //o(n)
     public boolean remove(Object o) {
-        if(head == null) {
+        if (head == null) {
             throw new NoSuchElementException();
         }
         Node current = head;
@@ -248,6 +258,12 @@ public class LinkedList < E > {
         return true;
     }
 
+    /**
+     * method to add item to an index
+     * @param index where to add
+     * @param item to add
+     * @return boolean
+     */
     //O(n)
     public boolean add(int index, E item) {
         if (index < 0 || index > size) {

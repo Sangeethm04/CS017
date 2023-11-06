@@ -123,6 +123,12 @@ public class ArrayList < E > {
     size--;
     return true;
   }
+
+  /**
+   * method contains that checks if an object is in the list
+   * @param o object to check
+   * @return boolean 
+   */
   public boolean contains(Object o) {
     containsIterations = 0;
     Iterator < E > iter = iterator();
@@ -135,7 +141,11 @@ public class ArrayList < E > {
     }
     return false;
   }
-
+  /**
+   * method remove that removes object from list
+   * @param o object to remove
+   * @return boolean
+   */
   //time complexity: O(n)
   public boolean remove(Object o) {
     removeIterations = 0;

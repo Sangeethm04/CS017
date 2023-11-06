@@ -1,8 +1,14 @@
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
-
+/**
+ * Class to test the ArrayList and LinkedList
+ */
 public class AnimalList {
+    /**
+     * main method to test arraylist and ll
+     * @param args
+     */
     public static void main(String[] args) {
         ArrayList < String > animalAL = new ArrayList < > ();
         LinkedList < String > animalLL = new LinkedList();
@@ -14,6 +20,12 @@ public class AnimalList {
 
     }
 
+    /**
+     * method to read animals from file
+     * @param al
+     * @param ll
+     * @param filename
+     */
     public static void readAnimals(ArrayList < String > al, LinkedList < String > ll, String filename) {
         try {
             Scanner read = new Scanner(new File(filename));
@@ -28,6 +40,11 @@ public class AnimalList {
         }
     }
 
+    /**
+     * method to test contains
+     * @param al
+     * @param ll
+     */
     public static void testContains(ArrayList < String > al, LinkedList < String > ll) {
         int totalAL = 0, totalLL = 0;
         System.out.println("\nComparing the methods contains(object)");
@@ -47,6 +64,11 @@ public class AnimalList {
             "Average", totalAL / 20, totalLL / 20);
     }
 
+    /**
+     * method to test add
+     * @param al the arraylist
+     * @param ll the linkedlist
+     */
     public static void testAdd(ArrayList < String > al, LinkedList < String > ll) {
         int totalAL = 0, totalLL = 0;
         System.out.println("\nComparing the methods add(int, E)");
@@ -66,6 +88,11 @@ public class AnimalList {
             "Average", totalAL / 20, totalLL / 20);
     }
 
+    /**
+     * method to test remove
+     * @param al the arraylist
+     * @param ll the linkedlist
+     */
     public static void testRemove(ArrayList < String > al, LinkedList < String > ll) {
         int totalAL = 0, totalLL = 0;
         System.out.println("\nComparing the mothods remove(oBject)");
