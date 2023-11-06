@@ -224,7 +224,11 @@ public class LinkedList < E > {
         return false;
     }
 
+    //o(n)
     public boolean remove(Object o) {
+        if(head == null) {
+            throw new NoSuchElementException();
+        }
         Node current = head;
         Node previous = null;
         removeIterations = 0;
@@ -258,7 +262,7 @@ public class LinkedList < E > {
         }
         Node current = head;
         Node previous = null;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < index; i++) {
             addIterations++;
             previous = current;
             current = current.next;

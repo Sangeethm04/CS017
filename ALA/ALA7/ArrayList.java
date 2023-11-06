@@ -47,9 +47,9 @@ public class ArrayList < E > {
       Time complexity: O(n)
   */
   public boolean add(int index, E item) {
-    addIterations = 0;
     if (index > size || index < 0)
       throw new ArrayIndexOutOfBoundsException();
+      addIterations = 0;
     ensureCapacity();
     for (int i = size - 1; i >= index; i--) {
       addIterations++;
@@ -123,6 +123,18 @@ public class ArrayList < E > {
     size--;
     return true;
   }
+  public boolean contains(Object o) {
+    containsIterations = 0;
+    Iterator < E > iter = iterator();
+    while (iter.hasNext()) {
+      containsIterations++;
+      E item = iter.next();
+      if (item.equals(o)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   //time complexity: O(n)
   public boolean remove(Object o) {
@@ -158,8 +170,9 @@ public class ArrayList < E > {
       for (int i = 0; i < size; i++) {
         addIterations++;
         newElements[i] = elements[i];
-        elements = newElements;
       }
+        elements = newElements;
+      
     }
   }
   /**
@@ -205,9 +218,9 @@ public class ArrayList < E > {
      */
     public boolean hasNext() {
       return current < size;
-    } 
-    
-   
+    }
+
+
     /**
         @return the value of the current element and moves the index current to the next element
         @throws ArrayIndexOutOfBoundsException if current is out of bounds
@@ -219,19 +232,6 @@ public class ArrayList < E > {
       return elements[current++];
     }
 
-
-   
   }
-   public boolean contains(Object o) {
-      containsIterations = 0;
-      Iterator < E > iter = iterator();
-      while (iter.hasNext()) {
-        containsIterations++;
-        E item = iter.next();
-        if (item.equals(o)) {
-          return true;
-        }
-      }
-      return false;
-    }
+
 }

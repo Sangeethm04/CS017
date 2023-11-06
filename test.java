@@ -1,4 +1,5 @@
 import java.util.Iterator;
+
 public class Test {
 	public static void main(String[] args) {
         /**
@@ -53,9 +54,8 @@ public class Test {
         System.out.println(cityLL.toString());
         
 
-        /*
-        //Testing Stack
         
+        //Testing Stack
         Stack<String> cityStack = new Stack<>();
         cityStack.push("New York");
         cityStack.push("San Diego");
@@ -68,11 +68,10 @@ public class Test {
         while(!cityStack.isEmpty())
 	        System.out.print(cityStack.pop() + " ");
         System.out.println();
-        */
-
-        /*
-        // Testing Queue
         
+
+        
+        // Testing Queue
         Queue<String> cityQueue = new Queue<>();
         cityQueue.offer("New York");
         cityQueue.offer("San Diego");
@@ -85,9 +84,9 @@ public class Test {
         while(!cityQueue.isEmpty())
 	        System.out.print(cityQueue.poll() + " ");
         System.out.println();
-        */
-
-        /*
+        
+        
+        
         // Testing PriorityQueue
         
         PriorityQueue<String> cityPriorityQueue = new PriorityQueue<>();
@@ -102,6 +101,52 @@ public class Test {
         while(!cityPriorityQueue.isEmpty()) {
 	        System.out.print(cityPriorityQueue.poll() + " ");
         }
+        System.out.println();
+        /*
+        // Testing Heap
+        Heap<String> heap = new Heap<>();               
+        heap.add("Kiwi");
+        heap.add("Strawberry");
+        heap.add("Apple");
+        heap.add("Banana");
+        heap.add("Orange");
+        heap.add("Lemon");
+        heap.add("Watermelon");
+        System.out.println("\nHeap: " + heap.toString());
+        System.out.println("Root: " + heap.getRoot());
+        System.out.println("Removed: " + heap.remove());
+        System.out.println("Heap: " + heap.toString());
+        System.out.println("Heap contains Pear?: " + 
+                            heap.contains("Pear"));
+        System.out.println();
+        */
+
+        /*
+        // Testing BST
+        BST<String> bst = new BST<>();
+        bst.add("Kiwi");
+        bst.add("Strawberry");
+        bst.add("Apple");
+        bst.add("Banana");
+        bst.add("Orange");
+        bst.add("Lemon");
+        bst.add("Watermelon");
+        System.out.print("BST: ");
+        bst.inorder();
+        System.out.println();
+        System.out.println("BST contains Banana? " + bst.contains("Banana"));
+        bst.remove("Banana");
+        System.out.println("BST contains Banana? " + bst.contains("Banana"));
+        System.out.print("BST: ");
+        bst.inorder();
+        System.out.println();
+        bst.remove("Orange");
+        System.out.print("BST: ");
+        bst.inorder();
+        System.out.println();
+        bst.remove("Kiwi");
+        System.out.print("BST: ");
+        bst.inorder();
         System.out.println();
         */
     }
