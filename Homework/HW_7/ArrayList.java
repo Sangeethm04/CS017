@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 /**
     Generic class to impelment an array based list
@@ -169,15 +170,31 @@ public class ArrayList < E > {
       @return iterator object pointing to the first element the list
       Time complexity: O(1)
    */
-  public Iterator < E > iterator() {
-    return new ArrayIterator();
+  public ListIterator < E > listIterator() {
+    return new ArrayListIterator();
+  }
+
+    public ListIterator < E > listIterator(int index) {
+    return new ArrayListIterator(index);
   }
   /**
       Inner class to implement the interface Iterator<E>
    */
-  private class ArrayIterator implements Iterator < E > {
+  private class ArrayListIterator implements ListIterator < E > {
     // data member current: the index of the element at which the iterator is pointing
     private int current = 0;
+    /**
+        Default constructor
+        Time complexity: O(1)
+     */
+    public ArrayListIterator() {
+
+    }
+
+    public ArrayListIterator(int index) {
+      current = index;
+    }
+
     /**
         @return true if current did not reach the end of the list, false otherwise
         Time complexity: O(1)
@@ -194,6 +211,38 @@ public class ArrayList < E > {
       if (current < 0 || current >= size)
         throw new ArrayIndexOutOfBoundsException("No more elements");
       return elements[current++];
+    }
+
+    public boolean hasPrevious() {
+      return (elements[--current] != null);
+    }
+
+    public E previous() {
+      if (elements[0] == null)
+        throw new NoSuchElementException();
+      return elements[--current];
+    }
+
+    public void add(E value) {
+      add(value);
+    }
+    public void remove() {
+      checkIndex(current);
+      for (int i = current; i < size - 1; i++)
+        elements[i] = elements[i + 1];
+      size--;
+    }
+
+    public void set(E value) {
+      elements[current] = value;
+    }
+
+    public int nextIndex() {
+      return (current + 1);
+    }
+
+    public int previousIndex() {
+      return (current - 1);
     }
   }
 }
