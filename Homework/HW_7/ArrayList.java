@@ -214,13 +214,16 @@ public class ArrayList < E > {
     }
 
     public boolean hasPrevious() {
-      return (elements[--current] != null);
+      return (elements[current-1] != null);
     }
 
     public E previous() {
-      if (elements[0] == null)
+      if (elements[current-1] == null) {
         throw new NoSuchElementException();
-      return elements[--current];
+      }
+        E one = elements[(current-1)];
+        current -= 1;
+      return one;
     }
 
     public void add(E value) {
