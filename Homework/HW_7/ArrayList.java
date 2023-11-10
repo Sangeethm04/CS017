@@ -174,7 +174,7 @@ public class ArrayList < E > {
     return new ArrayListIterator();
   }
 
-    public ListIterator < E > listIterator(int index) {
+  public ListIterator < E > listIterator(int index) {
     return new ArrayListIterator(index);
   }
   /**
@@ -191,6 +191,10 @@ public class ArrayList < E > {
 
     }
 
+    /**
+     * Constructor with one parameter
+     * @param index
+     */
     public ArrayListIterator(int index) {
       current = index;
     }
@@ -213,22 +217,42 @@ public class ArrayList < E > {
       return elements[current++];
     }
 
+    /**
+     * checks if there is a previous element
+     * @return true if there is a previous element, false otherwise
+     */
     public boolean hasPrevious() {
-      return (elements[current-1] != null);
+      return (elements[current - 1] != null);
     }
 
+    /**
+     * returns the previous element
+     * @return the previous element
+     */
     public E previous() {
-      if (elements[current-1] == null) {
+      if (elements[current - 1] == null) {
         throw new NoSuchElementException();
       }
-        E one = elements[(current-1)];
-        current -= 1;
+      E one = elements[(current - 1)];
+      current -= 1;
       return one;
     }
 
+    /**
+     * adds an element to the list
+     * @param value to be added
+     */
     public void add(E value) {
-      add(value);
+      ensureCapacity();
+      for (int i = size - 1; i >= current; i--)
+        elements[i + 1] = elements[i];
+      elements[current] = value;
+      size++;
     }
+
+    /**
+     * removes an element from the list
+     */
     public void remove() {
       checkIndex(current);
       for (int i = current; i < size - 1; i++)
@@ -236,14 +260,26 @@ public class ArrayList < E > {
       size--;
     }
 
+    /**
+     * sets an element to the list
+     * @param value to be set
+     */
     public void set(E value) {
       elements[current] = value;
     }
 
+    /**
+     * returns the next index
+     * @return int the next index
+     */
     public int nextIndex() {
       return (current + 1);
     }
 
+    /**
+     * returns the previous index
+     * @return int the previous index
+     */
     public int previousIndex() {
       return (current - 1);
     }

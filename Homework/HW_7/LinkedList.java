@@ -176,6 +176,14 @@ public class LinkedList < E > {
         return size;
     }
 
+    public Node get(int index) {
+        Node first = head;
+        for (int i = 0; i < index; i++) {
+            first = first.next;
+        }
+        return first;
+    }
+
     /**
         iterator method
         @override iterator() from the interface Collection
@@ -194,12 +202,16 @@ public class LinkedList < E > {
     */
     private class LinkedListListIterator implements ListIterator < E > {
         private Node current = head;
+        private Node previous = current.previous;
+
         public LinkedListListIterator() {
 
         }
 
         public LinkedListListIterator(int index) {
-
+            for (int i = 0; i < index; i++) {
+                current = current.next;
+            }
         }
         /**
             hasNext method
@@ -207,7 +219,7 @@ public class LinkedList < E > {
             Time complexity: O(1)
          */
         public boolean hasNext() {
-            return (current != null);
+            return (current.next != null);
         }
         /**
             next method
@@ -219,27 +231,43 @@ public class LinkedList < E > {
         public E next() {
             if (current == null)
                 throw new NoSuchElementException();
-            E value = current.value;
+            E value = current.next.value;
             current = current.next;
             return value;
         }
 
+        /**
+         * checks if there is a previous element
+         * @return true if there is a previous element, false otherwise
+         */
         public boolean hasPrevious() {
-            return (current.previous != null);
+            return (previous != null);
         }
 
+        /**
+         * returns the previous element
+         * @return the previous element
+         */
         public E previous() {
-            if (current == null)
+            if (hasPrevious()) {
                 throw new NoSuchElementException();
+            }
             E value = current.previous.value;
             current = current.previous;
             return value;
         }
 
+        /**
+         * returns the next index
+         * @param value the value to be added
+         */
         public void add(E value) {
-            add(value);
+            addLast(value);
         }
 
+        /**
+         * removes the current element
+         */
         public void remove() {
             if (head == null) {
                 throw new NoSuchElementException();
@@ -249,14 +277,22 @@ public class LinkedList < E > {
                 removeLast();
             } else {
                 current.next.previous = current.previous;
-                current.previous = current.next;
+                current.previous.next = current.next;
             }
         }
 
+        /**
+         * sets the current element to the value
+         * @param value the value to be set
+         */
         public void set(E value) {
             current.value = value;
         }
 
+        /**
+         * returns the next index
+         * @return int the next index
+         */
         public int nextIndex() {
             int index = 0;
             Node currents = head;
@@ -268,6 +304,10 @@ public class LinkedList < E > {
             return index;
         }
 
+        /**
+         * returns the previous index
+         * @return int the previous index
+         */
         public int previousIndex() {
             int index = 0;
             Node currents = head;
