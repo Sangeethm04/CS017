@@ -1,8 +1,14 @@
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
-
+/**
+ * test class
+ */
 public class Test {
+    /**
+     * main method
+     * @param args
+     */
     public static void main(String[] args) {
         PriorityQueue < Patient > emergencyRoom = new PriorityQueue < > ();
         readPatients(emergencyRoom, "patients.txt");
@@ -10,7 +16,7 @@ public class Test {
         System.out.println("\n\nPerfomance of poll()");
         while (!emergencyRoom.isEmpty()) {
             Patient p = emergencyRoom.poll();
-            total += MinHeap.addIterations;
+            total += MinHeap.removeIterations;
             if (counter % 25 == 0) {
                 System.out.println(p + "\t" + MinHeap.removeIterations);
             }
@@ -19,11 +25,16 @@ public class Test {
         System.out.println("Average: " + "\t\t" + total / counter);
     }
 
+    /**
+     * read patients from file
+     * @param pq priority queue
+     * @param filename 
+     */
     public static void readPatients(PriorityQueue < Patient > pq, String filename) {
         try {
             Scanner read = new Scanner(new File(filename));
             int counter = 0, total = 0;
-            System.out.println("\nPerfomance of poll(E)");
+            System.out.println("\nPerfomance of offer(E)");
             while (read.hasNextLine()) {
                 String line = read.nextLine();
                 String[] tokens = line.split(",");
