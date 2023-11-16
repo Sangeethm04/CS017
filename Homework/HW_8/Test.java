@@ -13,6 +13,7 @@ public class Test {
         // System.out.println("By gpa ll sort:");
         // ll.sort(new ComparatorByGPA());
         // System.out.println("By name al sort:");
+         System.out.println("ArrayList sorted by ID");
         al.sort(new ComparatorByName());
         System.out.println("By gpa al sort:");
         al.sort(new ComparatorByGPA());
