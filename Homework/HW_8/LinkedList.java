@@ -138,13 +138,12 @@ public class LinkedList < E > {
         Time complexity: O(n)
     */
     public String toString() {
-        String output = "[";
+        String output = "";
         Node node = head;
         while (node != null) {
-            output += node.value + " ";
+            output += node.value + "\n";
             node = node.next;
         }
-        output += "]";
         return output;
     }
     /**
@@ -217,7 +216,7 @@ public class LinkedList < E > {
             list.add(iter.next());
         }
         this.clear();
-        while (list != null) {
+        while (!list.isEmpty()) {
             this.add(list.remove());
         }
     }

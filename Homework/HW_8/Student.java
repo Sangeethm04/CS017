@@ -38,13 +38,13 @@ public class Student implements Comparable < Student > {
     }
 
     public String toString() {
-        return id + name + gpa;
+        return id + " " + name + " " + gpa;
     }
 
     public int compareTo(Student a) {
-        if (this.getGPA() < a.getGPA()) {
+        if (this.getID() < a.getID()) {
             return -1;
-        } else if (this.getGPA() > a.getGPA()) {
+        } else if (this.getID() > a.getID()) {
             return 1;
         } else {
             return 0;

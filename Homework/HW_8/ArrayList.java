@@ -161,10 +161,10 @@ public class ArrayList < E > {
       Time complexity: O(n)
    */
   public String toString() {
-    String output = "[";
+    String output = "";
     for (int i = 0; i < size - 1; i++)
-      output += elements[i] + " ";
-    output += elements[size - 1] + "]";
+      output += elements[i] + "\n";
+    output += elements[size - 1];
     return output;
   }
   /**
