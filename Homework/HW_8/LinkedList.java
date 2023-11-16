@@ -210,13 +210,16 @@ public class LinkedList < E > {
         }
     }
     public void sort(Comparator < E > comp) {
+        sortIterations = 0;
         MinHeap < E > list = new MinHeap < > (comp);
         Iterator < E > iter = iterator();
         while (iter.hasNext()) {
+            sortIterations++;
             list.add(iter.next());
         }
         this.clear();
         while (!list.isEmpty()) {
+            sortIterations++;
             this.add(list.remove());
         }
     }

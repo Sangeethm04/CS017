@@ -202,14 +202,17 @@ public class ArrayList < E > {
   }
 
   public void sort(Comparator < E > comp) {
+    sortIterations = 0;
     MinHeap < E > heap = new MinHeap < > (comp);
-    Iterator<E> iter = iterator();
-    while(iter.hasNext()) {
+    Iterator < E > iter = iterator();
+    while (iter.hasNext()) {
+      sortIterations++;
       heap.add(iter.next());
     }
-    
+
     this.clear();
     while (!heap.isEmpty()) {
+      sortIterations++;
       this.add(heap.remove());
     }
   }

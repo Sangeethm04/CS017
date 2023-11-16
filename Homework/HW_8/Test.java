@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,8 +45,23 @@ public class Test {
                     System.out.println(ll);
                     break;
                 case 4:
-                    System.out.println(LinkedList.sortIterations);
-                    System.out.println(ArrayList.sortIterations);
+                System.out.println("Performance of the sort method (# iterations)");
+                System.out.println("List            by ID           by Name         by GPA");
+                    System.out.print("ArrayList: ");
+                    al.sort(null);
+                    System.out.print(ArrayList.sortIterations + "\t");
+                    al.sort(new ComparatorByName());
+                    System.out.print(ArrayList.sortIterations + "\t");
+                    al.sort(new ComparatorByGPA());
+                    System.out.println(ArrayList.sortIterations + "\t");
+                    System.out.print("LinkedList: ");
+                    ll.sort(null);
+                    System.out.print(LinkedList.sortIterations + "\t");
+                    ll.sort(new ComparatorByName());
+                    System.out.print(LinkedList.sortIterations + "\t");
+                    ll.sort(new ComparatorByGPA());
+                    System.out.print(LinkedList.sortIterations + "\t");
+                    System.out.println();
                     break;
                 case 5:
                     break;

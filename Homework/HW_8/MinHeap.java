@@ -1,11 +1,9 @@
 import java.util.NoSuchElementException;
 import java.util.Comparator;
-import java.util.ArrayList;
 public class MinHeap<E> {
     // ArrayList where the nodes of the heap are stored
     private ArrayList<E> list;
     private Comparator<E> comp;
-    public static int addIterations, removeIterations;
     /**
      * Default Constructor
      */
@@ -76,11 +74,11 @@ public class MinHeap<E> {
      * reconstructs the heap to keep the MaxHeap properties
      */
     public void add(E value) {
-        addIterations = 0;
         list.add(value);
         int currentIndex = list.size()-1; 
         while(currentIndex > 0) {
-            addIterations++;
+            ArrayList.sortIterations++;
+            LinkedList.sortIterations++;
             int parentIndex = (currentIndex-1)/2;
             E current = list.get(currentIndex);
             E parent = list.get(parentIndex);
@@ -108,13 +106,14 @@ public class MinHeap<E> {
     public E remove() {
         if(list.isEmpty()) 
             return null;
-        removeIterations = 0;
         E removedItem = list.get(0);
         list.set(0, list.get(list.size()-1)); // value of the root = value of the last node in the heap
         list.remove(list.size()-1);// remove the last node
         int currentIndex = 0;
         while (currentIndex < list.size()) {
-            removeIterations++;
+            ArrayList.sortIterations++;
+            LinkedList.sortIterations++;
+
             int left = 2 * currentIndex + 1;
             int right = 2 * currentIndex + 2;
             if (left >= list.size()) 
