@@ -1,0 +1,1 @@
+The perfomance is similar for both the linkedlist and arraylist with this data set. The data set also does not seem to be very effiecient with it having to go through each element for example with the linkedlist. Time complexity for the arraylist and linkedlist is 0(n) meaning it has to go through every element to sort making it a linear time complexity which is inefficient.

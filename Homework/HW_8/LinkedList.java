@@ -209,6 +209,14 @@ public class LinkedList < E > {
             return value;
         }
     }
+
+    /**
+     * Method remove
+     * @return the value of the root, null if the heap is empty
+     * reconstructs the heap to keep the MaxHeap properties
+     * Time complexity: O(n)
+     * space complexity: O(n)
+     */
     public void sort(Comparator < E > comp) {
         sortIterations = 0;
         MinHeap < E > list = new MinHeap < > (comp);

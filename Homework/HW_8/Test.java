@@ -3,8 +3,14 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-
+/**
+ * test class
+ */
 public class Test {
+    /**
+     * main method
+     * @param args
+     */
     public static void main(String[] args) {
         ArrayList < Student > al = new ArrayList < > ();
         LinkedList < Student > ll = new LinkedList < > ();
@@ -19,8 +25,7 @@ public class Test {
                     System.out.println("ArrayList sorted by ID");
                     al.sort(null);
                     System.out.println(al);
-                                        System.out.println();
-
+                    System.out.println();
                     System.out.println("LinkedList sorted by ID");
                     ll.sort(null);
                     System.out.println(ll);
@@ -38,15 +43,15 @@ public class Test {
                     System.out.println("ArrayList sorted by GPA");
                     al.sort(new ComparatorByGPA());
                     System.out.println(al);
-                                        System.out.println();
+                    System.out.println();
 
                     System.out.println("LinkedList sorted by GPA");
                     ll.sort(new ComparatorByGPA());
                     System.out.println(ll);
                     break;
                 case 4:
-                System.out.println("Performance of the sort method (# iterations)");
-                System.out.println("List            by ID           by Name         by GPA");
+                    System.out.println("Performance of the sort method (# iterations)");
+                    System.out.println("List            by ID           by Name         by GPA");
                     System.out.print("ArrayList: ");
                     al.sort(null);
                     System.out.print(ArrayList.sortIterations + "\t");
@@ -70,6 +75,12 @@ public class Test {
 
     }
 
+    /**
+     * file that reads data from file
+     * @param al
+     * @param ll
+     * @param filename
+     */
     public static void readFile(ArrayList < Student > al, LinkedList < Student > ll, String filename) {
         try {
             Scanner sc = new Scanner(new File(filename));

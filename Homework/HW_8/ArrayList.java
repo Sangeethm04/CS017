@@ -201,6 +201,12 @@ public class ArrayList < E > {
 
   }
 
+  /**
+   * sort method that adds to comparator
+   * @param comp using to sort
+   * Time complexity: O(n)
+   * space complexity: O(n)
+   */
   public void sort(Comparator < E > comp) {
     sortIterations = 0;
     MinHeap < E > heap = new MinHeap < > (comp);

@@ -1,0 +1,1 @@
+Very interesting that offer and poll are both logn time complexity. This means that this algorithm using a minheap is efficient for quick access to the minimum element and maintaining collection. It shows that not all elements are visted for the poll and offer operations.
