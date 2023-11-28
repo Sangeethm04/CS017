@@ -14,6 +14,11 @@ public class Test {
         BST < String > bstWords = new BST < > ();
         hashWords.clear();
         testAdd(words, llWords, bstWords, hashWords);
+        testContains(words, llWords, bstWords, hashWords);
+        testRemove(words, llWords, bstWords, hashWords);
+
+        System.out.println("\nThe maximum number of collisions: " + hashWords.collisions());
+
 
     }
 
@@ -31,27 +36,74 @@ public class Test {
         }
     }
 
+    public static void testAdd(ArrayList < HashMapEntry < String, String >> al,
+    LinkedList < String > ll, BST < String > bst, HashMap < String, String > hm) {
+        int counter = 0, totalLL = 0, totalBST = 0, totalHM = 0;
+        int frequency  = al.size()/20;
+        System.out.println("testing insertion method");
+        System.out.printf("%-20s\t%-15s\t%-15s\t%-15s\n", "Word", "LL add", "BST add", "HashMap put");
+
+        for(HashMapEntry<String, String> entry: al) {
+            String word = entry.getKey();
+            ll.add(word);
+            bst.add(word);
+            hm.put(word, entry.getValue());
+            totalLL += LinkedList.addIterations;
+            totalBST += BST.addIterations;
+            totalHM += HashMap.putIterations;
+            if(counter % frequency == 0) {
+                System.out.printf("%-20s\t%-15d\t%-15d\t%-15d\n", word, LinkedList.addIterations, BST.addIterations, HashMap.putIterations);
+            }
+            counter++;
+        }
+    System.out.printf("%-20s\t%-15d\t%-15d\n", "Average", totalLL/al.size(), totalBST/al.size(), totalHM/al.size());
+
+}
     public static void testContains(ArrayList < HashMapEntry < String, String >> al,
         LinkedList < String > ll, BST < String > bst, HashMap < String, String > hm) {
-            int counter = 0, totalLL = 0, totalBST = 0, totalHM = 0;
-            int frequency  = al.size()/20;
+            int totalLL = 0, totalBST = 0, totalHM = 0;
             System.out.println("testing insertion method");
-            System.out.printf("%-20s\t%-15s\t%-15s\t%-15s\n", "Word", "LL contains", "BST contains", "HashMap put");
+            System.out.printf("%-20s\t%-15s\t%-15s\t%-15s\n", "Word", "LL contains", "BST contains", "HashMap get");
 
-            for(HashMapEntry<String, String> entry: al) {
-                String word = entry.getKey();
-                ll.add(word);
-                bst.add(word);
-                hm.put(word, entry.getValue());
-                totalLL += LinkedList.addIterations;
-                totalBST += BST.addIterations;
-                totalHM += HashMap.putIterations;
-                if(counter % frequency == 0) {
-                    System.out.printf("%-20s\t%-15d\t%-15d\t%-15d\n", word, LinkedList.addIterations, BST.addIterations, HashMap.putIterations);
+            for(int i = 0; i<1000;i++) {
+                int index = (int)(Math.random() * al.size());
+                String word = al.get(index).getKey();
+                ll.contains(word);
+                bst.contains(word);
+                hm.get(word);
+                totalLL += LinkedList.containsIterations;
+                totalBST += BST.containsIterations;
+                totalHM += HashMap.getIterations;
+                if(i % 50 == 0) {
+                    System.out.printf("%-20s\t%-15d\t%-15d\t%-15d\n", word, LinkedList.containsIterations, BST.containsIterations, HashMap.getIterations);
                 }
-                counter++;
+                i++;
             }
-        System.out.printf("%-20s\t%-15d\t%-15d\n", "Average", totalLL/al.size(), totalBST/al.size(), totalHM/al.size());
+        System.out.printf("%-20s\t%-15d\t%-15d\t%-15d\n", "Average", totalLL/1000, totalBST/1000, totalHM/1000);
+
+    }
+
+       public static void testRemove(ArrayList < HashMapEntry < String, String >> al,
+        LinkedList < String > ll, BST < String > bst, HashMap < String, String > hm) {
+            int totalLL = 0, totalBST = 0, totalHM = 0;
+            System.out.println("testing remove method");
+            System.out.printf("%-20s\t%-15s\t%-15s\t%-15s\n", "Word", "LL remove", "BST remove", "HashMap remove");
+
+            for(int i = 0; i<1000;i++) {
+                int index = (int)(Math.random() * al.size());
+                String word = al.get(index).getKey();
+                ll.remove(word);
+                bst.remove(word);
+                hm.remove(word);
+                totalLL += LinkedList.removeIterations;
+                totalBST += BST.removeIterations;
+                totalHM += HashMap.removeIterations;
+                if(i % 50 == 0) {
+                    System.out.printf("%-20s\t%-15d\t%-15d\t%-15d\n", word, LinkedList.removeIterations, BST.removeIterations, HashMap.removeIterations);
+                }
+                i++;
+            }
+        System.out.printf("%-20s\t%-15d\t%-15d\t%-15d\n", "Average", totalLL/1000, totalBST/1000, totalHM/1000);
 
     }
 }

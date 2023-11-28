@@ -216,4 +216,17 @@ public class HashMap < K, V > {
 		out += "]";
 		return out;
 	}
+
+	public int collisions() {
+		int max = 0;
+		for(int i = 0; i<hashTable.length; i++) {
+			if(hashTable[i] != null) {
+				int size = hashTable[i].size();
+				if(size > max) {
+					max = size;
+				}
+			}
+		}
+		return max;
+	}
 }
