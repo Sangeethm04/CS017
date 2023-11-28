@@ -3,10 +3,10 @@ import java.util.Comparator;
 /**
  * binary search tree implementation
  */
-public class TreeSet < E > {
+public class TreeSet < E extends Comparable < E >> {
     private TreeNode root;
     private int size;
-    private Comparator<E> comp;
+    private Comparator < E > comp;
     public static int containsIterations,
     addIterations,
     removeIterations;
@@ -31,10 +31,10 @@ public class TreeSet < E > {
     /**
      * bst constructor
      */
-    public TreeSet(Comparator<E> e) {
-        comp = e;
-        root = null;
-        size = 0;
+    public TreeSet(Comparator < E > e) {
+        this.comp = e;
+        this.root = null;
+        this.size = 0;
     }
 
     /**
@@ -82,12 +82,21 @@ public class TreeSet < E > {
         TreeNode node = root;
         while (node != null) {
             containsIterations++;
-            if (comp.compare(value,node.value) < 0)
-                node = node.left;
-            else if (comp.compare(value,node.value) > 0)
-                node = node.right;
-            else
-                return true;
+            if (comp == null) {
+                if (value.compareTo(node.value) < 0)
+                    node = node.left;
+                else if (comp.compare(value, node.value) > 0)
+                    node = node.right;
+                else
+                    return true;
+            } else {
+                if (comp.compare(value, node.value) < 0)
+                    node = node.left;
+                else if (comp.compare(value, node.value) > 0)
+                    node = node.right;
+                else
+                    return true;
+            }
         }
         return false;
     }
@@ -108,17 +117,28 @@ public class TreeSet < E > {
             while (node != null) {
                 addIterations++;
                 parent = node;
-                if (comp.compare(value,node.value) < 0) {
-                    node = node.left;
-                } else if (comp.compare(value,node.value) > 0) {
-                    node = node.right;
-                } else
-                    return false;
+                if (comp == null) {
+                    if (value.compareTo(node.value) < 0) {
+                        node = node.left;
+                    } else if (value.compareTo(node.value) > 0) {
+                        node = node.right;
+                    } else
+                        return false;
+                } else {
+                    if (comp.compare(value, node.value) < 0) {
+                        node = node.left;
+                    } else if (comp.compare(value, node.value) > 0) {
+                        node = node.right;
+                    } else
+                        return false;
+
+                    if (comp.compare(value, parent.value) < 0)
+                        parent.left = new TreeNode(value);
+                    else
+                        parent.right = new TreeNode(value);
+                }
             }
-            if (comp.compare(value,parent.value) < 0)
-                parent.left = new TreeNode(value);
-            else
-                parent.right = new TreeNode(value);
+
         }
         size++;
         return true;
@@ -137,10 +157,10 @@ public class TreeSet < E > {
         // Find value first
         while (node != null) {
             removeIterations++;
-            if (comp.compare(value,node.value) < 0) {
+            if (comp.compare(value, node.value) < 0) {
                 parent = node;
                 node = node.left;
-            } else if (comp.compare(value,node.value) > 0) {
+            } else if (comp.compare(value, node.value) > 0) {
                 parent = node;
                 node = node.right;
             } else
