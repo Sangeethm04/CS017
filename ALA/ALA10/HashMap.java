@@ -85,7 +85,7 @@ public class HashMap < K, V > {
 	public boolean isEmpty() {
 		return (size == 0);
 	}
-
+String
 	/**
 			Search method
 			@param key to be serached
