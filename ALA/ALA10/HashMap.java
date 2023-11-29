@@ -85,7 +85,7 @@ public class HashMap < K, V > {
 	public boolean isEmpty() {
 		return (size == 0);
 	}
-String
+
 	/**
 			Search method
 			@param key to be serached
@@ -219,10 +219,10 @@ String
 
 	public int collisions() {
 		int max = 0;
-		for(int i = 0; i<hashTable.length; i++) {
-			if(hashTable[i] != null) {
+		for (int i = 0; i < hashTable.length; i++) {
+			if (hashTable[i] != null) {
 				int size = hashTable[i].size();
-				if(size > max) {
+				if (size > max) {
 					max = size;
 				}
 			}

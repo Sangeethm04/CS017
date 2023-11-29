@@ -1,11 +1,14 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedList<E> {
+public class LinkedList < E > {
     // Data members
-    private Node head, tail;
+    private Node head,
+    tail;
     private int size;
-    public static int containsIterations, removeIterations, addIterations;
+    public static int containsIterations,
+    removeIterations,
+    addIterations;
     // Inner class Node
     private class Node {
         E value;
@@ -25,8 +28,7 @@ public class LinkedList<E> {
         Node newNode = new Node(item);
         if (head == null) {
             head = tail = newNode;
-        }
-        else {
+        } else {
             newNode.next = head;
             head = newNode;
         }
@@ -37,8 +39,7 @@ public class LinkedList<E> {
         Node newNode = new Node(item);
         if (head == null) {
             head = tail = newNode;
-        }
-        else{
+        } else {
             tail.next = newNode;
             tail = newNode;
         }
@@ -109,10 +110,10 @@ public class LinkedList<E> {
     }
 
     // Generating an iterator for the list
-    public Iterator<E> iterator() {
+    public Iterator < E > iterator() {
         return new LinkedListIterator();
     }
-    private class LinkedListIterator implements Iterator<E> {
+    private class LinkedListIterator implements Iterator < E > {
         private Node current = head;
         public boolean hasNext() {
             return (current != null);
@@ -128,58 +129,57 @@ public class LinkedList<E> {
 
     // Method contains
     // O(n)
-    public boolean contains(Object o){
+    public boolean contains(Object o) {
         containsIterations = 0;
         E value = (E) o;
-        Iterator<E> iter = iterator();
-        while(iter.hasNext()){
+        Iterator < E > iter = iterator();
+        while (iter.hasNext()) {
             containsIterations++;
-            if(iter.next().equals(value))
-            {
+            if (iter.next().equals(value)) {
                 return true;
             }
         }
         return false;
     }
     // O(n)
-    public boolean remove (Object o){
+    public boolean remove(Object o) {
         removeIterations = 0;
         Node current = head;
         Node previous = null;
         E value = (E) o;
-        while(current != null && !current.value.equals(value)){
+        while (current != null && !current.value.equals(value)) {
             removeIterations++;
             previous = current;
             current = current.next;
         }
-        if(current == null){
+        if (current == null) {
             return false;
         }
-        if(previous == null){
+        if (previous == null) {
             return removeFirst();
         }
         previous.next = current.next;
-        if(current == tail){
+        if (current == tail) {
             tail = previous;
         }
         size--;
         return true;
     }
     // O(n)
-    public boolean add(int index, E item){
-        if(index < 0 || index > size){
+    public boolean add(int index, E item) {
+        if (index < 0 || index > size) {
             throw new ArrayIndexOutOfBoundsException();
         }
         addIterations = 0;
-        if(index == 0){
+        if (index == 0) {
             return addFirst(item);
         }
-        if(index == size){
+        if (index == size) {
             return addLast(item);
         }
         Node current = head;
         Node previous = null;
-        for(int i=0; i<index; i++){
+        for (int i = 0; i < index; i++) {
             addIterations++;
             previous = current;
             current = current.next;

@@ -1,6 +1,5 @@
 import java.util.Comparator;
 
-import javax.swing.tree.TreeNode;
 
 /**
  * binary search tree implementation

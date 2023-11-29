@@ -1,17 +1,19 @@
-public class BST<E extends Comparable<E>> {
+public class BST < E extends Comparable < E >> {
     private TreeNode root;
     private int size;
-    public static int containsIterations, addIterations, removeIterations;
-    private class TreeNode{
+    public static int containsIterations,
+    addIterations,
+    removeIterations;
+    private class TreeNode {
         E value;
         TreeNode left;
         TreeNode right;
-        TreeNode(E val){
+        TreeNode(E val) {
             value = val;
             left = right = null;
         }
     }
-    public BST(){
+    public BST() {
         root = null;
         size = 0;
     }
@@ -26,17 +28,17 @@ public class BST<E extends Comparable<E>> {
         size = 0;
     }
     // Search Method
-    public boolean contains(E value){
-        if(root == null){
+    public boolean contains(E value) {
+        if (root == null) {
             return false;
         }
         containsIterations = 0;
         TreeNode node = root;
-        while(node != null){
+        while (node != null) {
             containsIterations++;
-            if(value.compareTo(node.value) < 0)
+            if (value.compareTo(node.value) < 0)
                 node = node.left;
-            else if (value.compareTo(node.value)> 0)
+            else if (value.compareTo(node.value) > 0)
                 node = node.right;
             else
                 return true;
@@ -50,20 +52,19 @@ public class BST<E extends Comparable<E>> {
             root = new TreeNode(value);
         else {
             TreeNode parent, node;
-            parent = null; node = root;
+            parent = null;
+            node = root;
             while (node != null) {
                 addIterations++;
                 parent = node;
-                if(value.compareTo(node.value) < 0) {
+                if (value.compareTo(node.value) < 0) {
                     node = node.left;
-                }
-                else if (value.compareTo(node.value) > 0) {
+                } else if (value.compareTo(node.value) > 0) {
                     node = node.right;
-                }
-                else
+                } else
                     return false;
             }
-            if (value.compareTo(parent.value)< 0)
+            if (value.compareTo(parent.value) < 0)
                 parent.left = new TreeNode(value);
             else
                 parent.right = new TreeNode(value);
@@ -74,7 +75,8 @@ public class BST<E extends Comparable<E>> {
     // Removal Method
     public boolean remove(E value) {
         TreeNode parent, node;
-        parent = null; node = root;
+        parent = null;
+        node = root;
         removeIterations = 0;
         // Find value first
         while (node != null) {
@@ -82,50 +84,44 @@ public class BST<E extends Comparable<E>> {
             if (value.compareTo(node.value) < 0) {
                 parent = node;
                 node = node.left;
-            }
-            else if (value.compareTo(node.value) > 0) {
+            } else if (value.compareTo(node.value) > 0) {
                 parent = node;
                 node = node.right;
-            }
-            else
+            } else
                 break; // value found
         }
         if (node == null) // value not in the tree
             return false;
         // Case 1: node has no children
-        if(node.left == null && node.right == null){
-            if(parent == null){ // delete root
-                root = null; size = 0;
-            }
+        if (node.left == null && node.right == null) {
+            if (parent == null) { // delete root
+                root = null;
+                size = 0;
+            } else
+            if (parent.left == node)
+                parent.left = null;
             else
-                if(parent.left == node)
-                    parent.left = null;
-                else
-                    parent.right = null;
-        }
-        else if(node.left == null){
-        //case 2: node has one right child
+                parent.right = null;
+        } else if (node.left == null) {
+            //case 2: node has one right child
             if (parent == null)
                 root = node.right;
             else
-                if(parent.left == node)
-                    parent.left = node.right;
-                else
-                    parent.right = node.right;
-        }
-        else if(node.right == null){
-        //case 2: node has one left child
+            if (parent.left == node)
+                parent.left = node.right;
+            else
+                parent.right = node.right;
+        } else if (node.right == null) {
+            //case 2: node has one left child
             if (parent == null)
                 root = node.left;
             else
-                if(parent.left == node)
-                    parent.left = node.left;
-                else
-                    parent.right = node.left;
-        }
-
-        else {
-        // case 3: node has two children
+            if (parent.left == node)
+                parent.left = node.left;
+            else
+                parent.right = node.left;
+        } else {
+            // case 3: node has two children
             TreeNode rightMostParent = node;
             TreeNode rightMost = node.left;
             // go right on the left subtree
@@ -137,7 +133,7 @@ public class BST<E extends Comparable<E>> {
             // copy the value of rigthMost to node
             node.value = rightMost.value;
             //delete rigthMost
-            if(rightMostParent.left == rightMost)
+            if (rightMostParent.left == rightMost)
                 rightMostParent.left = rightMost.left;
             else
                 rightMostParent.right = rightMost.left;
@@ -172,7 +168,7 @@ public class BST<E extends Comparable<E>> {
     public void postorder() {
         postorder(root);
     }
-    private void postorder(TreeNode node)  {
+    private void postorder(TreeNode node) {
         if (node != null) {
             postorder(node.left);
             postorder(node.right);
