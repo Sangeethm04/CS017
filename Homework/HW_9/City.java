@@ -39,9 +39,9 @@ public class City implements Comparable<City> {
     }
 
     public int compareTo(City c) {
-        if(this.getName().compareTo(c.getName()) > 1) {
+        if(this.getName().compareTo(c.getName()) > 0) {
             return 1;
-        } else if(this.getName().compareTo(c.getName()) < 1) {
+        } else if(this.getName().compareTo(c.getName()) < 0) {
             return -1;
         } else {
             return 0;
