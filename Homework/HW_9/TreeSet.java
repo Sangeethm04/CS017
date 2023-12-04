@@ -22,7 +22,7 @@ public class TreeSet < E extends Comparable < E >> {
     }
 
     /**
-     * bst constructor
+     * bst default constructor
      */
     public TreeSet() {
         comp = null;
@@ -30,7 +30,8 @@ public class TreeSet < E extends Comparable < E >> {
         size = 0;
     }
     /**
-     * bst constructor
+     * bst constructor with comparator
+     * @param e comparator for custom ordering
      */
     public TreeSet(Comparator < E > e) {
         comp = e;
@@ -45,7 +46,10 @@ public class TreeSet < E extends Comparable < E >> {
     public int size() {
         return size;
     }
-    //The method first returns the first or the lowest element in the set. 
+    /**
+     * The method first returns the first or the lowest element in the set. 
+     * Time complexity O(n)
+     */
     public E first() {
         TreeNode root = this.root;
         while (root.left != null) {
@@ -53,8 +57,10 @@ public class TreeSet < E extends Comparable < E >> {
         }
         return root.value;
     }
-    //The method last returns the last or the highest element in the set.
-
+    /**
+     * The method last returns the last or the highest element in the set.
+     * Time complexity O(n)
+     */
     public E last() {
         TreeNode root = this.root;
         while (root.right != null) {
@@ -64,7 +70,7 @@ public class TreeSet < E extends Comparable < E >> {
     }
 
     /**
-     * isEmpty method
+     * isEmpty method to check isempty
      * @return boolean
      */
     public boolean isEmpty() {
@@ -72,7 +78,7 @@ public class TreeSet < E extends Comparable < E >> {
     }
 
     /**
-     * clear method
+     * clear method to clear the tree
      */
     public void clear() {
         root = null;
@@ -113,10 +119,9 @@ public class TreeSet < E extends Comparable < E >> {
     }
     /**
      * insertion method
-     * @param value E
+     * @param value E to add
      * @return boolean
      */
-    // Insertion Method
     public boolean add(E value) {
         addIterations = 0;
         if (root == null)
@@ -136,7 +141,7 @@ public class TreeSet < E extends Comparable < E >> {
                     } else
                         return false;
 
-                  
+
                 } else {
                     if (value.compareTo(node.value) < 0) {
                         node = node.left;
@@ -145,30 +150,29 @@ public class TreeSet < E extends Comparable < E >> {
                     } else
                         return false;
 
-                    
+
                 }
             }
-            if(comp != null) {
-                 if (comp.compare(value, parent.value) < 0)
-                        parent.left = new TreeNode(value);
-                    else
-                        parent.right = new TreeNode(value);
+            if (comp != null) {
+                if (comp.compare(value, parent.value) < 0)
+                    parent.left = new TreeNode(value);
+                else
+                    parent.right = new TreeNode(value);
             } else {
                 if (value.compareTo(parent.value) < 0)
-                        parent.left = new TreeNode(value);
-                    else
-                        parent.right = new TreeNode(value);
+                    parent.left = new TreeNode(value);
+                else
+                    parent.right = new TreeNode(value);
             }
-           
+
 
         }
         size++;
         return true;
     }
-    // Removal Method
     /**
      * removal method
-     * @param value E
+     * @param value E to remove
      * @return boolean
      */
     public boolean remove(E value) {
@@ -252,9 +256,8 @@ public class TreeSet < E extends Comparable < E >> {
         return true;
     }
 
-    // Recursive Inorder Traversal Method
     /**
-     * inorder method
+     * Recursive Inorder Traversal Method
      */
     public void inorder() {
         inorder(root);
@@ -262,12 +265,12 @@ public class TreeSet < E extends Comparable < E >> {
 
     /**
      * inorder method
-     * @param node
+     * @param node to traverse
      */
     private void inorder(TreeNode node) {
         if (node != null) {
             inorder(node.left);
-            System.out.print(node.value + " ");
+            System.out.print(node.value);
             inorder(node.right);
         }
     }

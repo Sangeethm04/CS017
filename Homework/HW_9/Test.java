@@ -1,8 +1,15 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-
+/**
+ * Test class
+ * There are more duplicates in the comparator classes than the natural ordering because of the way they're inserted into the bst. The set does not allow duplicates and therefore using the natural ordering of city names will have more duplicates than numbers or lat or long which explains why there are far more cities in the comparator sorts than the natural ordering version.
+ */
 public class Test{
+    /**
+     * main method
+     * @param args command line arguments
+     */
     public static void main(String[] args){
         Scanner keyboard = new Scanner(System.in);
         int selection = 0;
@@ -44,6 +51,12 @@ public class Test{
             }
         } while(selection != 4);
     }
+
+    /**
+     * readCities method to read cities from file
+     * @param tree to add to
+     * @param filename to read from
+     */
     public static void readCities(TreeSet<City> tree, String filename){
         try{
             Scanner read = new Scanner(new File(filename));
