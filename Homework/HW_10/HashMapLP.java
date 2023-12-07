@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
 	Class that implements a hashtable with two generic types
@@ -7,39 +6,41 @@ import java.util.LinkedList;
 	V for value
 	Separate Chaining is used to resolve the collisions
  */
-public class HashMap < K, V > {
+public class HashMapLP < K, V > {
 	// data member: number of elements added to the hashmap
 	private int size;
 	// data member: load factor at which rehashing is required
 	private double loadFactor;
 	// data member: Array of linked lists
-	private LinkedList < HashMapEntry < K,
-	V >> [] hashTable;
+	private HashMapEntry < K,
+	V > [] hashTable;
 	public static int getIterations;
+	private int collisions;
 	/**
 		Default constructor
 		Creates a hashmap with capacity 100 and load factor 0.9
 	*/
-	public HashMap() {
-		this(100, 0.9);
+	public HashMapLP() {
+		this(100, 0.5);
 	}
 	/**
 		Constructor with one parameter
 		Creates a hashmap with capacity c and default load factor 0.9
 		@param c the capacity of the hashtable
 	*/
-	public HashMap(int c) {
-		this(c, 0.9);
+	public HashMapLP(int c) {
+		this(c, 0.5);
 	}
 	/**
 		Constructor with two parameters
 		@param c the capacity of the hashtable
 		@param lf the load factor for the hashtable
 	*/
-	public HashMap(int c, double lf) {
-		hashTable = new LinkedList[trimToPowerOf2(c)];
+	public HashMapLP(int c, double lf) {
+		hashTable = new HashMapEntry[trimToPowerOf2(c)];
 		loadFactor = lf;
 		size = 0;
+		collisions = 0;
 	}
 	/**
 		Method trimToPowerOf2 to create a hashtable with a size that is
@@ -69,13 +70,11 @@ public class HashMap < K, V > {
 		return size;
 	}
 	/**
-		Method to clear the hashtable
+		new Method to clear the hashtable
 	*/
 	public void clear() {
+		hashTable = new HashMapEntry[hashTable.length];
 		size = 0;
-		for (int i = 0; i < hashTable.length; i++)
-			if (hashTable[i] != null)
-				hashTable[i].clear();
 	}
 	/**
 		Method to check if the hashtable is empty
@@ -101,15 +100,11 @@ public class HashMap < K, V > {
 		@return the value of the key if found, null otherwise
 	*/
 	public V get(K key) {
-		getIterations = 0;
 		int HTIndex = hash(key.hashCode());
-		if (hashTable[HTIndex] != null) {
-			LinkedList < HashMapEntry < K, V >> ll = hashTable[HTIndex];
-			for (HashMapEntry < K, V > entry: ll) {
-				getIterations++;
-				if (entry.getKey().equals(key))
-					return entry.getValue();
-			}
+		while (hashTable[HTIndex] != null) {
+			if (hashTable[HTIndex].getKey().equals(key))
+				return hashTable[HTIndex].getValue();
+			HTIndex = (HTIndex + 1) % hashTable.length;
 		}
 		return null;
 	}
@@ -121,10 +116,9 @@ public class HashMap < K, V > {
 	public void remove(K key) {
 		int HTIndex = hash(key.hashCode());
 		if (hashTable[HTIndex] != null) { //key is in the hash map
-			LinkedList < HashMapEntry < K, V >> ll = hashTable[HTIndex];
-			for (HashMapEntry < K, V > entry: ll) {
+			for (HashMapEntry < K, V > entry: hashTable) {
 				if (entry.getKey().equals(key)) {
-					ll.remove(entry);
+					entry = null;
 					size--;
 					break;
 				}
@@ -137,41 +131,38 @@ public class HashMap < K, V > {
 		@param value of the key to be added
 		@return old value if the key was found or the new value if key was not found
 	*/
-	public V put(K key, V value) {
-		V val = get(key);
-		if (val != null) { // The key is in the hash map
-			int HTIndex = hash(key.hashCode());
-			LinkedList < HashMapEntry < K, V >> ll = hashTable[HTIndex];
-			for (HashMapEntry < K, V > entry: ll) {
-				if (entry.getKey().equals(key)) {
-					V old = entry.getValue();
-					entry.setValue(value);
-					return old;
-				}
-			}
-		}
+	public void put(K key, V value) {
 		// key not in the hash map - check load factor
 		if (size >= hashTable.length * loadFactor)
 			rehash();
 
 		int HTIndex = hash(key.hashCode());
-		//create a new LL if empty
-		if (hashTable[HTIndex] == null) {
-			hashTable[HTIndex] = new LinkedList < > ();
+
+		while (hashTable[HTIndex] != null && !hashTable[HTIndex].getKey().equals(key)) {
+			collisions++;
+			HTIndex = (HTIndex + 1) % hashTable.length;
 		}
-		hashTable[HTIndex].add(new HashMapEntry < > (key, value));
-		size++;
-		return value;
+
+		if (hashTable[HTIndex] == null) {
+			hashTable[HTIndex] = new HashMapEntry < K, V > (key, value);
+			size++;
+		} else {
+			hashTable[HTIndex].setValue(value);
+		}
+
+
 	}
 	/**
 		Method to rehash the hashtable
     */
 	private void rehash() {
 		ArrayList < HashMapEntry < K, V >> list = toList();
-		hashTable = new LinkedList[hashTable.length << 1]; // double the length of hashtable
+		hashTable = new HashMapEntry[hashTable.length << 1]; // double the length of hashtable
 		size = 0;
 		for (HashMapEntry < K, V > entry: list) {
-			put(entry.getKey(), entry.getValue());
+			if (entry != null) {
+				put(entry.getKey(), entry.getValue());
+			}
 		}
 	}
 	/**
@@ -181,16 +172,15 @@ public class HashMap < K, V > {
 	public ArrayList < HashMapEntry < K,
 	V >> toList() {
 		ArrayList < HashMapEntry < K, V >> list = new ArrayList < > ();
-		for (int i = 0; i < hashTable.length; i++) {
-			if (hashTable[i] != null) {
-				LinkedList < HashMapEntry < K, V >> ll = hashTable[i];
-				for (HashMapEntry < K, V > entry: ll) {
-					list.add(entry);
-				}
+		for (HashMapEntry < K, V > entry: hashTable) {
+			if (entry != null) {
+				list.add(entry);
 			}
+
 		}
 		return list;
 	}
+
 	/**
 		toString method
 		@return formatted string with all the pairs (key,value) in the hashtable
@@ -199,12 +189,41 @@ public class HashMap < K, V > {
 		String out = "[";
 		for (int i = 0; i < hashTable.length; i++) {
 			if (hashTable[i] != null) {
-				for (HashMapEntry < K, V > entry: hashTable[i])
-					out += entry.toString();
+				out += hashTable[i].toString();
 				out += "\n";
 			}
 		}
 		out += "]";
 		return out;
+	}
+
+	public void printClusters() {
+		int clusters = 0;
+		int largest = 0;
+		int smallest = 0;
+		int clusterSize = 0;
+		int clusterCount = 0;
+		for (int i = 0; i < hashTable.length; i++) {
+			if (hashTable[i] != null) {
+				clusterSize++;
+				clusterCount++;
+			} else {
+				if (clusterSize > largest) {
+					largest = clusterSize;
+				}
+				if (clusterSize < smallest) {
+					smallest = clusterSize;
+				}
+				if (clusterSize > 0) {
+					clusters++;
+				}
+				clusterSize = 0;
+			}
+		}
+		System.out.println("Capacity: " + hashTable.length);
+		System.out.println("Total Collisions: " + collisions);
+		System.out.println("Number of Clusters: " + clusters);
+		System.out.println("Size of Largest Cluster: " + largest);
+		System.out.println("Size of Smallest Cluster: " + smallest);
 	}
 }
