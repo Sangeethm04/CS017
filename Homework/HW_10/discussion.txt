@@ -1,0 +1,1 @@
+interesting that the number of clusters is relatively high for the number of movies in this file and the largest cluster is 14729 which means there are huge clusters of data mainly due to it being linear probing and going until it finds the next empty slot

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 /**
 	Class that implements a hashtable with two generic types
 	K for key
@@ -39,7 +38,7 @@ public class HashMapLP < K, V > {
 	public HashMapLP(int c, double lf) {
 		hashTable = new HashMapEntry[trimToPowerOf2(c)];
 		loadFactor = lf;
-		size = 0;
+		size = c;
 		collisions = 0;
 	}
 	/**
@@ -118,7 +117,7 @@ public class HashMapLP < K, V > {
 		if (hashTable[HTIndex] != null) { //key is in the hash map
 			for (HashMapEntry < K, V > entry: hashTable) {
 				if (entry.getKey().equals(key)) {
-					entry = null;
+					hashTable[HTIndex] = null;
 					size--;
 					break;
 				}
@@ -140,7 +139,8 @@ public class HashMapLP < K, V > {
 					hashTable[HTIndex].setValue(value);
 					return old;
 				}
-				HTIndex = (HTIndex + 1) & (hashTable.length - 1);
+				collisions++;
+				HTIndex = (HTIndex + 1) % (hashTable.length - 1);
 			}
 		}
 		// key not in the hash map - check load factor
@@ -148,10 +148,15 @@ public class HashMapLP < K, V > {
 			rehash();
 
 		int HTIndex = hash(key.hashCode());
-		//create a new LL if empty
-		while (hashTable[HTIndex] != null) {
-			HTIndex = (HTIndex + 1) & (hashTable.length - 1);
+	
+		if (hashTable[HTIndex] == null)
+			hashTable[HTIndex] = new HashMapEntry < > (key, value);
+		else {
 			collisions++;
+			//find the next empty location
+			while (hashTable[HTIndex] != null) {
+				HTIndex = (HTIndex + 1) % (hashTable.length - 1);
+			}
 		}
 		hashTable[HTIndex] = new HashMapEntry < > (key, value);
 		size++;
@@ -174,8 +179,7 @@ public class HashMapLP < K, V > {
 		Method to return all the pairs (key,value) stored in the hashtable
 		@return an array list with all the pairs (key,value)
     */
-	public ArrayList < HashMapEntry < K,
-	V >> toList() {
+	public ArrayList < HashMapEntry < K,V >> toList() {
 		ArrayList < HashMapEntry < K, V >> list = new ArrayList < > ();
 		for (HashMapEntry < K, V > entry: hashTable) {
 			if (entry != null) {
@@ -202,33 +206,37 @@ public class HashMapLP < K, V > {
 		return out;
 	}
 
+	/**
+	 * Method to print hashtable details
+	 */
 	public void printClusters() {
-		int clusters = 0;
-		int largest = 0;
-		int smallest = 0;
+		int[] clusters = new int[hashTable.length];
 		int clusterSize = 0;
 		int clusterCount = 0;
+		int largestCluster = 0;
+		int smallestCluster = 0;
 		for (int i = 0; i < hashTable.length; i++) {
 			if (hashTable[i] != null) {
 				clusterSize++;
-				clusterCount++;
 			} else {
-				if (clusterSize > largest) {
-					largest = clusterSize;
+				if (clusterSize > largestCluster) {
+					largestCluster = clusterSize;
 				}
-				if (clusterSize < smallest) {
-					smallest = clusterSize;
+				if (clusterSize < smallestCluster || smallestCluster == 0) {
+					smallestCluster = clusterSize;
 				}
 				if (clusterSize > 0) {
-					clusters++;
+					clusterCount++;
 				}
+				clusters[clusterCount] = clusterSize;
 				clusterSize = 0;
 			}
 		}
-		System.out.println("Capacity: " + hashTable.length);
-		System.out.println("Total Collisions: " + collisions);
-		System.out.println("Number of Clusters: " + clusters);
-		System.out.println("Size of Largest Cluster: " + largest);
-		System.out.println("Size of Smallest Cluster: " + smallest);
+		System.out.println("Hash table characteristics");
+		System.out.println("HashTable capacity: " + hashTable.length);
+		System.out.println("Total number of collisions: " + collisions);
+		System.out.println("Number of clusters: " + clusterCount);
+		System.out.println("Size of the largest cluster: " + largestCluster);
+		System.out.println("Size of the smallest cluster: " + smallestCluster);
 	}
 }

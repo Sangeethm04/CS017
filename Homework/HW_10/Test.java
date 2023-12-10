@@ -3,7 +3,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * class that implements the hashtable with linear probing
+ */
 public class Test {
+    /**
+     * main method
+     * @param args
+     */
     public static void main(String[] args) {
         HashMapLP < Integer, Movie > map = new HashMapLP < > (63000);
         readFile("movies.csv", map);
@@ -64,6 +71,11 @@ public class Test {
 
     }
 
+    /**
+     * Method to read the file and store the data in the hashtable
+     * @param file file to be read
+     * @param map hashtable to store the data
+     */
     public static void readFile(String file, HashMapLP < Integer, Movie > map) {
         try {
             Scanner files = new Scanner(new File(file));
@@ -84,6 +96,11 @@ public class Test {
         }
     }
 
+    /**
+     * Method to read the file and store the data in the hashtable
+     * @param file file to read from
+     * @param map hashtable to store the data
+     */
     public static void readFile2(String file, HashMapLP < Integer, Movie > map) {
         try {
             Scanner files = new Scanner(new File(file));
@@ -96,7 +113,6 @@ public class Test {
                 double rating = Double.parseDouble(tokens[2]);
                 Movie movie = map.get(id);
                 movie.addRating(rating);
-                map.put(id, movie);
 
             }
             files.close();
