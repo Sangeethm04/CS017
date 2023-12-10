@@ -131,26 +131,31 @@ public class HashMapLP < K, V > {
 		@param value of the key to be added
 		@return old value if the key was found or the new value if key was not found
 	*/
-	public void put(K key, V value) {
+	public V put(K key, V value) {
+		if (get(key) != null) { // The key is in the hash map
+			int HTIndex = hash(key.hashCode());
+			while (hashTable[HTIndex] != null) {
+				if (hashTable[HTIndex].getKey().equals(key)) {
+					V old = hashTable[HTIndex].getValue();
+					hashTable[HTIndex].setValue(value);
+					return old;
+				}
+				HTIndex = (HTIndex + 1) & (hashTable.length - 1);
+			}
+		}
 		// key not in the hash map - check load factor
 		if (size >= hashTable.length * loadFactor)
 			rehash();
 
 		int HTIndex = hash(key.hashCode());
-
-		while (hashTable[HTIndex] != null && !hashTable[HTIndex].getKey().equals(key)) {
+		//create a new LL if empty
+		while (hashTable[HTIndex] != null) {
+			HTIndex = (HTIndex + 1) & (hashTable.length - 1);
 			collisions++;
-			HTIndex = (HTIndex + 1) % hashTable.length;
 		}
-
-		if (hashTable[HTIndex] == null) {
-			hashTable[HTIndex] = new HashMapEntry < K, V > (key, value);
-			size++;
-		} else {
-			hashTable[HTIndex].setValue(value);
-		}
-
-
+		hashTable[HTIndex] = new HashMapEntry < > (key, value);
+		size++;
+		return value;
 	}
 	/**
 		Method to rehash the hashtable

@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) {
-        HashMapLP < Integer, Movie > map = new HashMapLP < > ();
+        HashMapLP < Integer, Movie > map = new HashMapLP < > (63000);
         readFile("movies.csv", map);
         readFile2("ratings.csv", map);
 
