@@ -6,15 +6,14 @@ import java.util.LinkedList;
 	K for key
 	V for value
  */
-//The class HashMap seen in class uses a LinkedList to store collisions. Replace LinkedList with BST. The generic type K must be  Comparable. Redefine HashMap and test it using the same test program from ALA 10.
-
-public class HashMap < K extends Comparable<K>, V > {
+public class HashMap < K, V > {
 	// data member: number of elements added to the hashmap
 	private int size;
 	// data member: load factor at which rehashing is required
 	private double loadFactor;
 	// data member: Array of linked lists
-	private BST<K>[] hashTable;
+	private LinkedList < HashMapEntry < K,
+	V >> [] hashTable;
 	public static int getIterations,
 	putIterations,
 	removeIterations;
@@ -39,9 +38,37 @@ public class HashMap < K extends Comparable<K>, V > {
 			@param lf the load factor for the hashtable
 	 	*/
 	public HashMap(int c, double lf) {
-		hashTable = new BST[trimToPowerOf2(c)];
+		hashTable = new LinkedList[trimToPowerOf2(c)];
 		loadFactor = lf;
 		size = 0;
+	}
+
+	public ArrayList < K > keys() {
+		ArrayList < K > nums = new ArrayList < > ();
+		for (int i = 0; i < hashTable.length; i++) {
+			LinkedList < HashMapEntry < K, V >> ll = hashTable[i];
+			if (ll != null) {
+				for (HashMapEntry < K, V > item: ll) {
+					nums.add(item.getKey());
+				}
+			}
+
+		}
+		return nums;
+	}
+
+	public boolean containsValue(V val) {
+		for (int i = 0; i < hashTable.length; i++) {
+			LinkedList < HashMapEntry < K, V >> ll = hashTable[i];
+			if (ll != null) {
+				for (HashMapEntry < K, V > item: ll) {
+					if(item.getValue().equals(val)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 	/**
 			Method trimToPowerOf2 to create a hashtable with a size that is
@@ -106,7 +133,7 @@ public class HashMap < K extends Comparable<K>, V > {
 		getIterations = 0;
 		int HTIndex = hash(key.hashCode());
 		if (hashTable[HTIndex] != null) {
-			BST < K> ll = hashTable[HTIndex];
+			LinkedList < HashMapEntry < K, V >> ll = hashTable[HTIndex];
 			for (HashMapEntry < K, V > entry: ll) {
 				getIterations++;
 				if (entry.getKey().equals(key))

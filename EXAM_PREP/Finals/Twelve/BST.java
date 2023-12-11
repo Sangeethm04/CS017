@@ -24,9 +24,9 @@ public class BST < E extends Comparable < E >> {
         root = null;
         size = 0;
     }
-// Implement the clone and equals methods for the BST class. Two BST trees are equal if they contain the same nodes. The clone method returns a deep copy of the tree. Determine the time complexity of the two methods.
-    public BST<E> clone() {
-        BST<E> copy = new BST<E>();
+    // Implement the clone and equals methods for the BST class. Two BST trees are equal if they contain the same nodes. The clone method returns a deep copy of the tree. Determine the time complexity of the two methods.
+    public BST < E > clone() {
+        BST < E > copy = new BST < E > ();
         copy.root = clone(root);
         copy.size = size;
         return copy;

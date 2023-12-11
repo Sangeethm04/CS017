@@ -1,4 +1,4 @@
-public class HashMapEntry < K, V> {
+public class HashMapEntry < K, V > {
 	private K key;
 	private V value;
 	public HashMapEntry(K k, V v) {
