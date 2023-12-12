@@ -1,33 +1,18 @@
 public class Billing {
-    private Patient patient;
-    private Doctor doctor;
-
-    public Billing(){
-
-    }
-
-    public Billing(Patient p, Doctor d) {
-        this.patient = p;
-        this.doctor = d;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setPatient(Patient p) {
-        this.patient = p;
-    }
-
-    public void setDoctor(Doctor d) {
-        this.doctor = d;
-    }
-
-    public String toString() {
-        return patient.toString() + doctor.toString();
-    }
+	private Patient patient;
+	private Doctor doctor;
+	public Billing() {
+   	patient = null; doctor = null;
+	}
+	public Billing(Patient p, Doctor d) {
+   	patient = p; doctor = d;
+	}
+	public Patient getPatient() { return patient; }
+	public Doctor getDoctor() { return doctor; }
+	public void setPatient(Patient p) { patient = p;}
+	public void setDoctor(Doctor d) { doctor=d; }
+	public String toString() {
+   	return "Patient: " + patient.toString() +
+                 	", Doctor: " + doctor.toString();
+	}
 }

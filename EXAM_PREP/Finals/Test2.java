@@ -17,9 +17,9 @@ public class Test2 {
         array2.add(1);
         array2.add(33333);
         array2.add(4);
-                array2.add(444);
+        array2.add(444);
 
-                
+
         quickSort(array2);
 
         for (int i = 0; i < array2.size(); i++) {
@@ -39,7 +39,7 @@ public class Test2 {
         if (word.length() == 0) {
             return fixed;
         } else {
-            fixed += word.charAt(word.length()-1);
+            fixed += word.charAt(word.length() - 1);
             return reverseString(word.substring(0, word.length() - 1), fixed);
 
         }
@@ -48,35 +48,39 @@ public class Test2 {
     public static < E > void removeDuplicates(ArrayList < E > array) {
         ArrayList < E > newArray = new ArrayList < > ();
 
-            removeDuplicates(array, newArray, 0);
+        removeDuplicates(array, newArray);
         for (int i = 0; i < newArray.size(); i++) {
             System.out.println(newArray.get(i));
         }
     }
 
-    public static < E > void removeDuplicates(ArrayList < E > array, ArrayList < E > newArray, int index) {
-        if (index == array.size()) {
-            return;
-        } else {
-            if(!newArray.contains(array.get(index))) {
-                newArray.add(array.get(index));
+    public static < E > void removeDuplicates(ArrayList < E > array, ArrayList < E > newArray) {
+        for (int i = 0; i < array.size(); i++) {
+            if (newArray.contains(array.get(i))) {
+                newArray.add(array.get(i));
             }
-            removeDuplicates(array, newArray, ++index);
-      
         }
     }
 
 
-    public static <E extends Comparable<E>> E findMax(ArrayList<E> arr) {
+    public static < E extends Comparable < E >> E findMax(ArrayList < E > arr) {
         E max = arr.get(0);
 
-        for(int i =0; i< arr.size(); i++) {
-            if(arr.get(i).compareTo(max) > 0) {
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i).compareTo(max) > 0) {
                 max = arr.get(i);
             }
         }
         return max;
     }
+
+    // public static <E> void removeAll(ArrayList<E> list) {
+    //     for(int i =0; i < size; i++) {
+    //         if(!list.contains(elemets[i])) {
+    //             remove()
+    //         }
+    //     }
+    // }
 
 
     /**
@@ -84,7 +88,7 @@ public class Test2 {
      * @param list to be sorted
      * Time complexity: O(nlogn) to O(n^2)
      */
-    public static < E extends Comparable < E >> void quickSort(ArrayList<E> list) {
+    public static < E extends Comparable < E >> void quickSort(ArrayList < E > list) {
         quickSort(list, 0, list.size() - 1);
     }
     /**
@@ -95,7 +99,7 @@ public class Test2 {
      * Time complexity: O(nlogn) to O(n^2)
      */
     // The quicksort algorithm covered in class selects the first element in the list as the pivot. Revise it by selecting the median among the first, middle, and the last elements in the list.
-    public static < E extends Comparable < E >> void quickSort(ArrayList<E> list, int first, int last) {
+    public static < E extends Comparable < E >> void quickSort(ArrayList < E > list, int first, int last) {
         if (first < last) {
             int pivotIndex = partition(list, first, last);
             quickSort(list, first, pivotIndex - 1);
@@ -111,29 +115,29 @@ public class Test2 {
      * Time complexity: O(n)
      */
     //The quicksort algorithm covered in class selects the first element in the list as the pivot. Revise it by selecting the median among the first, middle, and the last elements in the list.
-    public static < E extends Comparable < E >> int partition(ArrayList<E> list, int first, int last) {
+    public static < E extends Comparable < E >> int partition(ArrayList < E > list, int first, int last) {
         E pivot;
         int middle = (first + last) / 2;
-    
+
         // Get the median of first, middle, and last elements
         E firstElem = list.get(first);
         E middleElem = list.get(middle);
         E lastElem = list.get(last);
-    
+
         int pivotIndex;
-        if ((firstElem.compareTo(middleElem) <= 0 && firstElem.compareTo(lastElem) >= 0) || 
+        if ((firstElem.compareTo(middleElem) <= 0 && firstElem.compareTo(lastElem) >= 0) ||
             (firstElem.compareTo(middleElem) >= 0 && firstElem.compareTo(lastElem) <= 0)) {
             pivotIndex = first;
-        } else if ((middleElem.compareTo(firstElem) <= 0 && middleElem.compareTo(lastElem) >= 0) || 
-                   (middleElem.compareTo(firstElem) >= 0 && middleElem.compareTo(lastElem) <= 0)) {
+        } else if ((middleElem.compareTo(firstElem) <= 0 && middleElem.compareTo(lastElem) >= 0) ||
+            (middleElem.compareTo(firstElem) >= 0 && middleElem.compareTo(lastElem) <= 0)) {
             pivotIndex = middle;
         } else {
             pivotIndex = last;
         }
-    
+
         pivot = list.get(pivotIndex);
         swap(list, first, pivotIndex); // Move pivot to the start
-    
+
         int i = first + 1;
         for (int j = first + 1; j <= last; j++) {
             if (list.get(j).compareTo(pivot) < 0) {

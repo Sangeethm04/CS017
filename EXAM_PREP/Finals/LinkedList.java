@@ -3,7 +3,7 @@ import java.util.NoSuchElementException;
 /**
     LinkedList Generic Class
  */
-public class LinkedList < E > {
+public class LinkedList < E extends Comparable<E>> {
     // Data members
     private Node head,
     tail;
@@ -81,24 +81,21 @@ public class LinkedList < E > {
 
     //time complexity O(n)
     public E get(int index) { //O(1)
-        Iterator < E > iter = iterator();
-        int count = 0;
-        E item = getFirst();
-        while (iter.hasNext() && count <= index) {
-            item = iter.next();
-            count++;
-        }
-        return item;
+    Node current = head;
+    for(int i =0; i< index; i++) {
+        current = current.next;
+    }
+    return current.value;
     }
 
     //time complexity O(n)
     public E set(int index, E value) { //O(1)
         Node current = head;
-        for (int i = 0; i < index - 1; i++) {
+        for (int i = 0; i < index; i++) {
             current = current.next;
         }
-        E old = current.next.value;
-        current.next.value = value;
+        E old = current.value;
+        current.value = value;
         return old;
     }
 

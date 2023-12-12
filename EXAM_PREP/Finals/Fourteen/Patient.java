@@ -1,24 +1,22 @@
-public class Patient extends Person {
-    private Doctor primaryPhysician;
-
-    public Patient() {
-
-    }
-
-    public Patient(String n, String pp) {
-        super(n);
-        this.primaryPhysician.setName(pp);
-    }
-
-    public String getPP() {
-        return primaryPhysician.getName();
-    }
-
-    public void setPP(String pp) {
-        this.primaryPhysician.setName(pp);
-    }
-
-    public String toString() {
-        return primaryPhysician.toString();
-    }
+// Class Patient
+public class Patient extends Person{
+	private Doctor primaryPhysician;
+     public Patient() {
+    	super();
+    	primaryPhysician = null;
+     }
+     public Patient(String n, Doctor d) {
+    	super(n);
+    	primaryPhysician = d;
+     }
+     public Doctor getPP() {
+    	return primaryPhysician;
+     }
+     public void setPP(Doctor d) {
+    	primaryPhysician = d;
+     }
+     public String toString() {
+    	return super.toString() + " " +
+           	primaryPhysician.getName();
+     }
 }

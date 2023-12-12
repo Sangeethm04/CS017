@@ -161,13 +161,20 @@ public class ArrayList < E > {
 
     //removeall method
     public void removeAll(ArrayList < E > otherList) { //o(n)
-       for(int i = 0; i<otherList.size();i++) {
-        for(int j = 0; j<size();j++){
-            if(otherList.get(i).equals(this.get(j))) {
-                remove(j);
+       for(int i = 0; i<size();i++) {
+            if(otherList.contains(elements[i])) {
+                remove(i);
+            }
+       }
+    }
+
+    public boolean contains(E e) {
+        for (int i = 0; i < size; i++) {
+            if (elements[i].equals(e)) {
+                return true;
             }
         }
-       }
+        return false;
     }
 
         //[1, 2, 3].retainAll([3, 4]) results in the first list equal to [3]
@@ -189,8 +196,8 @@ public class ArrayList < E > {
 
         
    //toArray
-    public Object[] toArray() {
-        Object[] arr = new Object[size()];
+    public E[] toArray() {
+        E[] arr = (E[])new Object[size()];
         for(int i = 0; i<size();i++) {
             arr[i] = get(i);
         }

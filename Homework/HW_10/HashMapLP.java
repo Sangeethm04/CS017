@@ -39,7 +39,6 @@ public class HashMapLP < K, V > {
 		hashTable = new HashMapEntry[trimToPowerOf2(c)];
 		loadFactor = lf;
 		size = c;
-		collisions = 0;
 	}
 	/**
 		Method trimToPowerOf2 to create a hashtable with a size that is
@@ -103,7 +102,7 @@ public class HashMapLP < K, V > {
 		while (hashTable[HTIndex] != null) {
 			if (hashTable[HTIndex].getKey().equals(key))
 				return hashTable[HTIndex].getValue();
-			HTIndex = (HTIndex + 1) % hashTable.length;
+			HTIndex = (HTIndex + 1) & (hashTable.length-1);
 		}
 		return null;
 	}
@@ -139,7 +138,6 @@ public class HashMapLP < K, V > {
 					hashTable[HTIndex].setValue(value);
 					return old;
 				}
-				collisions++;
 				HTIndex = (HTIndex + 1) % (hashTable.length - 1);
 			}
 		}
@@ -149,15 +147,14 @@ public class HashMapLP < K, V > {
 
 		int HTIndex = hash(key.hashCode());
 	
-		if (hashTable[HTIndex] == null)
-			hashTable[HTIndex] = new HashMapEntry < > (key, value);
-		else {
-			collisions++;
+		if (hashTable[HTIndex] != null)
+		collisions++;
+			
 			//find the next empty location
 			while (hashTable[HTIndex] != null) {
 				HTIndex = (HTIndex + 1) % (hashTable.length - 1);
 			}
-		}
+		
 		hashTable[HTIndex] = new HashMapEntry < > (key, value);
 		size++;
 		return value;
