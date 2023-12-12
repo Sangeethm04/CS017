@@ -20,8 +20,10 @@ public class GymManager {
 		BST < Member > members = new BST < > ();
 		readMembers(members, "members.txt");
 		// login interface (username and password)
-		User user = login(keyboard, users);
-		if (user != null) {
+
+		try { 
+			User user = login(keyboard, users);	
+			if (user != null) {
 			if (user.getID().startsWith("M")) {
 				// Member menu (add/drop sessions)
 				memberOperations(keyboard, user.getID(), members, classes);
@@ -30,6 +32,12 @@ public class GymManager {
 				adminOperations(classes, members);
 			}
 		}
+		} catch(InputMismatchException e) {
+			System.out.println(e);
+		}
+		
+
+	
 	}
 	/**
 	 * Method readClasses
@@ -240,17 +248,21 @@ public class GymManager {
 	 */
 	public static void printIncome(LinkedList < Class > classes, BST < Member > bst) {
 		ArrayList < Member > arr = bst.toList();
-		Iterator < Class > iter = classes.iterator();
-		double income = 0;
-
-		while (iter.hasNext()) {
-			Class c = iter.next();
-			int members = c.getMembers();
-			income += members * c.getFees();
+		double total = 0.0;
+		for (int i = 0; i < bst.size(); i++) {
+			Member m = arr.get(i);
+			double income = 0.0;
+			for (int j = 0; j < m.getClasses().size(); j++) {
+				String code = m.getClasses().get(j);
+				Class c = classes.find(new Class(code, "", 0, 0.0, ""));
+				income += c.getFees();
+			}
+			System.out.printf("%-10s\t$%-5.2f\n", m.getID(), income);
+			total += income;
+			
 		}
-		System.out.printf("Total income: $%.2f\n", income);
 
-
+		System.out.println(total);
 	}
 	/**
 	 * Method sortClasses to print the list of classes ranked by popularity
@@ -269,7 +281,7 @@ public class GymManager {
 
 		/********* Write your code for sortClasses here    *********/
 		//The method should iterate through the bst members to find the members enrolled in each class and update the data member members for each class in the list classes
-		Iterator < Class > iter = classes.iterator();
+		
 		ArrayList < Member > arr = bst.toList();
 		for (int i = 0; i < bst.size(); i++) {
 			Member m = arr.get(i);
@@ -280,9 +292,9 @@ public class GymManager {
 			}
 
 		}
+		
 
-
-
+Iterator < Class > iter = classes.iterator();
 
 
 		classes.sort(new ComparatorByMember());
