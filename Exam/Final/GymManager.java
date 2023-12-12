@@ -9,26 +9,25 @@ public class GymManager {
 	public static void main(String[] args) {
 		Scanner keyboard = new Scanner(System.in);
 		// Read the list of classes in an array list
-		LinkedList<Class> classes = new LinkedList<>();
+		LinkedList < Class > classes = new LinkedList < > ();
 		readClasses(classes, "classes.txt");
 		// Read the list of users in a hash map
 		// username is the key and the User object is the value
-		HashMap<String, User> users = new HashMap<>(500);
+		HashMap < String, User > users = new HashMap < > (500);
 		readUsers(users, "users.txt");
 
 		// Read the list of members in a BST
-		BST<Member> members = new BST<>();
+		BST < Member > members = new BST < > ();
 		readMembers(members, "members.txt");
 		// login interface (username and password)
 		User user = login(keyboard, users);
-		if(user != null) {
-			if(user.getID().startsWith("M")) {
+		if (user != null) {
+			if (user.getID().startsWith("M")) {
 				// Member menu (add/drop sessions)
 				memberOperations(keyboard, user.getID(), members, classes);
-			}
-			else {
+			} else {
 				// Administrator menu (popular classes/income)
-				adminOperations(classes,members);
+				adminOperations(classes, members);
 			}
 		}
 	}
@@ -37,7 +36,7 @@ public class GymManager {
 	 * @param list linked list where the data read will be stored
 	 * @param filename name of the text file to read from
 	 */
-	public static void readClasses(LinkedList<Class> list, String filename) {
+	public static void readClasses(LinkedList < Class > list, String filename) {
 		File file = new File(filename);
 		Scanner readFile = null;
 		try {
@@ -46,14 +45,13 @@ public class GymManager {
 				String line = readFile.nextLine();
 				String[] tokens = line.split(" ");
 				Class c = new Class(tokens[0], tokens[1],
-									Integer.parseInt(tokens[2]),
-									Double.parseDouble(tokens[3]),
-									tokens[4]);
+					Integer.parseInt(tokens[2]),
+					Double.parseDouble(tokens[3]),
+					tokens[4]);
 				list.add(c);
 			}
 			readFile.close();
-		}
-		catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			System.out.println("File " + filename + " not found");
 		}
 	}
@@ -63,7 +61,7 @@ public class GymManager {
 	 * @param ht the hashtable where the read data will be stored
 	 * @param filename name of the text file to read from
 	 */
-	public static void readUsers(HashMap<String, User> hm, String filename) {
+	public static void readUsers(HashMap < String, User > hm, String filename) {
 		File file = new File(filename);
 		Scanner readFile = null;
 		try {
@@ -72,11 +70,10 @@ public class GymManager {
 				String line = readFile.nextLine();
 				String[] tokens = line.split(" ");
 				User user = new User(tokens[0], tokens[1], tokens[2]);
-				hm.put(tokens[0], user);
+				hm.put(tokens[1], user);
 			}
 			readFile.close();
-		}
-		catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			System.out.println("File " + filename + " not found");
 		}
 	}
@@ -86,7 +83,7 @@ public class GymManager {
 	 * @param bst the binary search tree where the data read will be stored
 	 * @param filename name of the text file to read from
 	 */
-	public static void readMembers(BST<Member> bst, String filename) {
+	public static void readMembers(BST < Member > bst, String filename) {
 		File file = new File(filename);
 		Scanner readFile = null;
 		try {
@@ -112,25 +109,23 @@ public class GymManager {
 	 * @param scan the scanner used to interact with the user
 	 * @param users the hashtable with all the users credentials
 	 */
-	public static User login(Scanner scan, HashMap<String, User> users) {
+	public static User login(Scanner scan, HashMap < String, User > users) {
 		int count = 0;
-		while(count < 3) {
+		while (count < 3) {
 			System.out.print("Enter username: ");
 			String username = scan.next();
-			if(!username.matches("[a-z]{3}[0-9]{3}")) {
+			if (!username.matches("[a-z]{3}[0-9]{3}")) {
 				throw new InputMismatchException();
 			}
 			User u = users.get(username);
-			if(u == null) {
+			if (u == null) {
 				System.out.println("Username not found. Try again.");
-			}
-			else {
+			} else {
 				System.out.print("\nEnter password: ");
 				String password = scan.next();
-				if(u.getPassword().equals(password)) {
+				if (u.getPassword().equals(password)) {
 					return u;
-				}
-				else {
+				} else {
 					System.out.println("Password incorrect. Try again.");
 				}
 			}
@@ -149,15 +144,15 @@ public class GymManager {
 	 * @param classes the linked list of the Gym classes
 	 */
 	public static void memberOperations(Scanner scan, String id,
-									    BST<Member> members, LinkedList<Class> classes){
+		BST < Member > members, LinkedList < Class > classes) {
 		int operation;
 		Member m = members.find(new Member(id, ""));
-		if(m == null) {
+		if (m == null) {
 			System.out.println("ID: " + id + " not found.");
 			System.exit(0);
 		}
 		do {
-			ArrayList<String> myClasses = m.getClasses();
+			ArrayList < String > myClasses = m.getClasses();
 			System.out.println("Select an operation:");
 			System.out.println("1: View My Classes");
 			System.out.println("2: View All Classes");
@@ -165,7 +160,7 @@ public class GymManager {
 			System.out.println("4: Drop a Class");
 			System.out.println("5: Logout");
 			operation = scan.nextInt();
-			switch(operation) {
+			switch (operation) {
 				case 1: // view my classes
 					myClasses = m.getClasses();
 					printMyClasses(classes, myClasses);
@@ -175,34 +170,41 @@ public class GymManager {
 					printAll(classes);
 					break;
 
-				case 5:// logout
+				case 5: // logout
 					System.out.println("Thank you for your visit!");
 					break;
 
-				case 3:// add class
+				case 3: // add class
 					/********* Write your code for add class here    *********/
-
-					m.addClass(scan.nextLine()); ;
+					printAll(classes);
+					System.out.println("enter code");
+					String code = scan.next();
+					m.addClass(code);
 					break;
 
 				case 4: // drop class
 					/********* Write your code for drop class here    *********/
-					m.removeClass(scan.nextLine());
-				
+					myClasses = m.getClasses();
+					printMyClasses(classes, myClasses);
+					System.out.println("Enter the code of the class you want to drop");
+					String codes = scan.next();
+
+					m.removeClass(codes);
+
 			}
-		} while (operation!= 5);
+		} while (operation != 5);
 	}
 	/**
 	 * Method printAll the classes
 	 * @param classes the list of classes
 	 */
-	public static void printAll(LinkedList<Class> classes) {
+	public static void printAll(LinkedList < Class > classes) {
 		System.out.printf("%-5s\t%-20s\t%-20s\t$%s\n", "Code", "Name", "Duration(minutes)", "Fees");
-		Iterator<Class> iter = classes.iterator();
-		while(iter.hasNext()) {
+		Iterator < Class > iter = classes.iterator();
+		while (iter.hasNext()) {
 			Class c = iter.next();
 			System.out.printf("%-5s\t%-20s\t%-20d\t$%-5.2f\n",
-					c.getCode(), c.getName(), c.getTime(), c.getFees());
+				c.getCode(), c.getName(), c.getTime(), c.getFees());
 		}
 	}
 	/**
@@ -210,15 +212,15 @@ public class GymManager {
 	 * @param classes the list of classes
 	 * @param myClasses the list of the member classes to print
 	 */
-	public static void printMyClasses(LinkedList<Class> classes,
-									  ArrayList<String> myClasses) {
+	public static void printMyClasses(LinkedList < Class > classes,
+		ArrayList < String > myClasses) {
 		System.out.printf("%-5s\t%-20s\t%-20s\t$%s\n", "Code", "Name", "Duration(minutes)", "Fees");
-		Iterator<String> it = myClasses.iterator();
-		while(it.hasNext()) {
+		Iterator < String > it = myClasses.iterator();
+		while (it.hasNext()) {
 			String code = it.next();
 			Class c = classes.find(new Class(code, "", 0, 0.0, ""));
 			System.out.printf("%-5s\t%-20s\t%-20d\t$%-5.2f\n",
-					c.getCode(), c.getName(), c.getTime(), c.getFees());
+				c.getCode(), c.getName(), c.getTime(), c.getFees());
 		}
 	}
 	/**	
@@ -226,9 +228,9 @@ public class GymManager {
 	 * @param classes the list classes
 	 * @param members the bst with all the Gym members
 	 */
-	public static void adminOperations(LinkedList<Class> classes, BST<Member> members) {
-			printIncome(classes, members);
-			sortClasses(classes, members);
+	public static void adminOperations(LinkedList < Class > classes, BST < Member > members) {
+		printIncome(classes, members);
+		sortClasses(classes, members);
 	}
 	/**
 	 * Method printIncome to print the income from each member and the total income
@@ -236,18 +238,18 @@ public class GymManager {
 	 * @param bst the bst with all the Gym members
 	 * time complexity: O(n^2)
 	 */
-	public static void printIncome(LinkedList<Class> classes, BST<Member> bst) {
-		ArrayList<Member> arr = bst.toList();
-		Iterator<Class> iter = classes.iterator();
+	public static void printIncome(LinkedList < Class > classes, BST < Member > bst) {
+		ArrayList < Member > arr = bst.toList();
+		Iterator < Class > iter = classes.iterator();
 		double income = 0;
-		
-		while(iter.hasNext()) {
+
+		while (iter.hasNext()) {
 			Class c = iter.next();
 			int members = c.getMembers();
 			income += members * c.getFees();
 		}
 		System.out.printf("Total income: $%.2f\n", income);
-		
+
 
 	}
 	/**
@@ -256,40 +258,39 @@ public class GymManager {
 	 * @param bst the BST with all the Gym members
 	 * 
 	 */
-	
 
-	public static void sortClasses(LinkedList<Class> classes, BST<Member> bst) {
-		class ComparatorByMember implements Comparator<Class>{
-			public int compare(Class c1, Class c2){
+
+	public static void sortClasses(LinkedList < Class > classes, BST < Member > bst) {
+		class ComparatorByMember implements Comparator < Class > {
+			public int compare(Class c1, Class c2) {
 				return c2.getMembers() - c1.getMembers();
 			}
 		}
 
 		/********* Write your code for sortClasses here    *********/
 		//The method should iterate through the bst members to find the members enrolled in each class and update the data member members for each class in the list classes
-		Iterator<Class> iter = classes.iterator();
-				ArrayList<Member> arr = bst.toList();
-				for(int i =0; i<bst.size(); i++) {
-					Member m = arr.get(i);
-					for(int j = 0; j<m.getClasses().size(); j++) {
-						String code = m.getClasses().get(j);
-						Class c = classes.find(new Class(code, "", 0, 0.0, ""));
-						c.setMembers(c.getMembers()+1);
-				}
-					
-				}
-				
+		Iterator < Class > iter = classes.iterator();
+		ArrayList < Member > arr = bst.toList();
+		for (int i = 0; i < bst.size(); i++) {
+			Member m = arr.get(i);
+			for (int j = 0; j < m.getClasses().size(); j++) {
+				String code = m.getClasses().get(j);
+				Class c = classes.find(new Class(code, "", 0, 0.0, ""));
+				c.addMember();
+			}
 
-		
-		
-		
+		}
+
+
+
+
+
 		classes.sort(new ComparatorByMember());
 
 		/********* Print the sorted list here    *********/
-		while(iter.hasNext()) {
+		while (iter.hasNext()) {
 			System.out.println(iter.next());
 		}
-		
+
 	}
 }
-
