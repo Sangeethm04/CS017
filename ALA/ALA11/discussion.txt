@@ -1,0 +1,1 @@
+selection sort is is the same for reversed and all cases and insertion sort is much better sorted and same with bubble sort, merge sort is very good relatively for logn and heap sort is also fast across the arraylists bucket and radix sorts are both the best due to in place sorting and o(d.n) time complexity
