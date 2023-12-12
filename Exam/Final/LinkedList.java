@@ -304,7 +304,7 @@ public class LinkedList < E > {
                     for(int j =0; j < i; j++) {
                         current = current.next;
                     }
-                    Node old = current.next;
+                    Node old = current;
                     current = old;
                     sorted = false;
                 }
@@ -313,3 +313,10 @@ public class LinkedList < E > {
 
     }
 }
+
+// if (comp.compare(get(i), get(i + 1)) > 0) {
+//                     E temp = get(i);
+//                     set(i, get(i + 1));
+//                     set(i + 1, temp);
+//                     sorted = false;
+//                 }
