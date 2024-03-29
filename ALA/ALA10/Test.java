@@ -24,6 +24,11 @@ public class Test {
 
     }
 
+    /**
+     * Read words method
+     * @param hm hashmap data structure
+     * @param filename file
+     */
     public static void readWords(HashMap < String, String > hm, String filename) {
         try {
             Scanner read = new Scanner(new File(filename));
@@ -38,6 +43,13 @@ public class Test {
         }
     }
 
+    /**
+     * testadd method
+     * @param al different ds
+     * @param ll different ds
+     * @param bst different ds
+     * @param hm different ds
+     */
     public static void testAdd(ArrayList < HashMapEntry < String, String >> al,
         LinkedList < String > ll, BST < String > bst, HashMap < String, String > hm) {
         int counter = 0, totalLL = 0, totalBST = 0, totalHM = 0;
@@ -84,6 +96,13 @@ public class Test {
 
     }
 
+    /**
+     * testremove method
+     * @param al different ds
+     * @param ll different ds
+     * @param bst different ds
+     * @param hm different ds
+     */
     public static void testRemove(ArrayList < HashMapEntry < String, String >> al,
         LinkedList < String > ll, BST < String > bst, HashMap < String, String > hm) {
         int totalLL = 0, totalBST = 0, totalHM = 0;

@@ -86,7 +86,7 @@ public class Airplane {
      * @throws InvalidSeatException
      */
     public boolean freeSeat(String seatNumber) throws InvalidSeatException {
-        checkSeatNumber(seatNumber);
+        if (checkSeatNumber(seatNumber)) {
         int row = seatNumber.charAt(0) - '1';
         int col = seatNumber.charAt(1) - 'A';
         if (seatMap[row][col] == 'X') {
@@ -95,6 +95,9 @@ public class Airplane {
         } else { //seat is free
             return false;
         }
+    } else {
+        return false;
+    }
     }
 
     /**
